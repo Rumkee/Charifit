@@ -1,0 +1,51 @@
+﻿@model Calorie.Models.CalorieImageUpload
+@*HiddenProfilePictureImageID*@
+
+@{
+
+    var thisID = Guid.NewGuid().ToString();
+    var thisPictureDivID = Guid.NewGuid().ToString();
+    var thisPictureDivErrorID = Guid.NewGuid().ToString();
+    if (!string.IsNullOrWhiteSpace(@Model.ThisElementID))
+    {
+        thisPictureDivID = Model.ThisElementID;
+    }
+
+}
+
+    <div id="@thisPictureDivID">
+        @{
+
+            if (Model.CurrentImageID.HasValue)
+            {
+                <img class="uploaded-img" src='@Url.Action("GetImage","Image")?ImageID=@Model.CurrentImageID.Value&Thumb=true' data-imageid='@Model.CurrentImageID.Value' />
+            }
+            else { 
+            switch (Model.Type)
+            {
+
+                case Calorie.Models.CalorieImage.ImageType.UserImage:
+                     <img src="~/Images/DefaultUser.jpg"  class="uploaded-img"  id="@thisID" />
+                    break;
+                default:
+                    <img src="~/Images/camera.jpg" class="uploaded-img"  id="@thisID" />
+                        break;
+                }
+            }
+        }
+       <div id="@thisPictureDivErrorID"></div>
+    </div>
+
+    <div id="ImageChooseButton" class="uploaded-img btn btn-default btn-file bordered">Choose <span class="glyphicon glyphicon-cloud-upload"></span><input type="file"></div>
+
+
+<script id="imageUploadScript"
+        data-type="@Model.Type.ToString()"
+        data-save-img-url="@Url.Action("SaveImage", "Image")"
+        data-get-image-url="@Url.Action("GetImage", "Image")"
+        data-picture-div="@thisPictureDivID"
+        data-picture-error-div="@thisPictureDivErrorID"
+        data-hidden-for-element-id="@Model.HiddenForElementID"
+        src="~/Scripts/Calorie/Image/_ImageUpload.js">
+    
+</script>

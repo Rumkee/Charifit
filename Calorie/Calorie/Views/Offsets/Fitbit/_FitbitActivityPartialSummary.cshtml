@@ -1,0 +1,115 @@
+﻿@model Calorie.Models.Trackers.FitbitVM
+
+@{
+
+
+    /*
+           "activityId":51007,
+      "activityParentId":90019,
+      "calories":230,
+      "description":"7mph",
+      "distance":2.04,
+      "duration":1097053,
+      "hasStartTime":true,
+      "isFavorite":true,
+      "logId":1154701,
+      "name":"Treadmill, 0% Incline",
+      "startTime":"00:25",
+      "steps":3783
+          */
+
+    var km = (double)Model.JSONObj.distance;
+    var meters = km * 1000.00;
+    var m = ((double)@Model.JSONObj.duration);
+    var s = m / 1000.00;
+    var mi = s / 60.00;
+    var Hours = mi / 60.00;
+}
+
+<div class="FitbitAcitivitySummary">
+    <div class="summarydetails" >
+
+        <div class="row">
+
+            <div class="col-xs-10">
+
+                <div class="row">
+                    
+                    <div class="col-xs-12 col-sm-4 col-md-3">
+                        @Html.Partial("..\\Account\\_UserPartial", @Model.User)
+                    </div>
+
+                    <div class="col-xs-12 col-sm-8 col-md-3">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <img src="@Url.Content(string.Format("~/Images/Activities/{0}.png", @Model.JSONObj.name))">&nbsp; @Model.JSONObj.name
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <span class="glyphicon glyphicon-calendar"></span>&nbsp;@Model.JSONObj.ActivityDate.ToString("dd MMMM yyyy HH:mm")
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row hidden-xs hidden-md hidden-lg hidden-xl">
+                        <div class="col-sm-4">
+                            <span class="glyphicon glyphicon-road"></span>&nbsp;@km.ToString("0.00") KM
+                        </div>
+                        <div class="col-sm-4">
+                            <span class="glyphicon glyphicon-time"></span>&nbsp;@Hours.ToString("0.00") Hours
+                        </div>
+                        <div class="col-sm-4">
+                            <span class="glyphicon glyphicon-fire"></span>&nbsp;@Model.JSONObj.calories Calories
+                        </div>
+                    </div>
+                    
+                    <div class=" hidden-sm col-xs-12 col-sm-4 col-md-2">
+                        <span class="glyphicon glyphicon-road"></span>&nbsp;@km.ToString("0.00") KM
+                    </div>
+                    <div class=" hidden-sm col-xs-12  col-sm-4 col-md-2">
+                        <span class="glyphicon glyphicon-time"></span>&nbsp;@Hours.ToString("0.00") Hours
+                    </div>
+                    <div class=" hidden-sm col-xs-12  col-sm-4 col-md-2">
+                        <span class="glyphicon glyphicon-fire"></span>&nbsp;@Model.JSONObj.calories Calories
+                    </div>
+
+                 
+
+                </div>
+                
+            </div>
+
+
+            @*add button*@
+            <div class="col-xs-2" style="display: block;">
+
+                <button onclick="fitbitActivityClick(event)" class="btn btn-default btn-sm pull-right"
+                        data-activityIdent="@Model.JSONObj.activityId"
+                        data-jsonblob="@Json.Encode(Model.JSONObj)"
+                        data-meters="@meters"
+                        data-secconds="@s"
+                        data-calories="@Model.JSONObj.calories">
+                    <span class="glyphicon glyphicon-plus"></span>
+                </button>
+                <text class="pull-right">&nbsp;&nbsp;</text>
+                <img class="pull-right" style="max-width: 75px; max-height: 38px;" src="~/Images/ThirdPartyLogos/fitbit.svg" />
+            </div>
+            
+
+        </div>
+
+    
+
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12 fulldetails">
+        </div>    
+    </div>
+    
+</div>
+
+
+
+

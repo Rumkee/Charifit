@@ -1,0 +1,20 @@
+﻿@model Calorie.Models.Offset
+
+@using Calorie.Models.Trackers
+
+<div>
+
+    @if (!string.IsNullOrEmpty(@Model.JSONBlob))
+    {
+
+        if (@Model.BlobType == "runKeeperActivity")
+        {
+            @Html.Partial("..//Offsets//runKeeper//_RunKeeperActivityPartial", new runKeeperVM(@Model.JSONBlob, @Model.Offsetter) {ShowButtons = false})
+        }
+    }
+
+</div>
+
+
+
+

@@ -1,0 +1,62 @@
+﻿@using Microsoft.AspNet.Identity
+
+@{
+    
+    var db = new Calorie.Models.ApplicationDbContext();
+    var id = User.Identity.GetUserId();
+    var user = db.Users.FirstOrDefault(u => u.Id == id);
+
+    
+}
+
+
+@if (user!=null)
+{
+    var ImgURL = Url.Action("GetImage", "Image");
+    var ImageStyle = user.IsCompany ? "corporatepicture" : "profilepicture";
+
+
+    <div class="visible-sm visible-md visible-lg  pull-right">
+        <a  href="@Url.Action("Edit", "Account")" style="position:relative">
+            @if (!string.IsNullOrEmpty(user.ProfilePictureID.ToString()))
+            {
+                <img src="@ImgURL?ImageID=@user.ProfilePictureID.ToString()&amp;Thumb=true" data-imageid="Calorie.Models.CalorieImage" class="@ImageStyle navbar-profilePicture" >
+            }
+            else
+            {
+                var name = new string(user.UserName.Take(2).ToArray()).ToUpper();
+
+                <img src="~/Images/DefaultUser.jpg" class="profilepicture profilepicture-header" />
+                <span class="nameoverlay nameoverlay-header ">@name</span>
+                
+            }
+            
+        </a>
+    </div>
+
+    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    {
+    @Html.AntiForgeryToken()
+            
+    <ul class="nav navbar-nav navbar-right">      
+        <li>
+            <a href="javascript:document.getElementById('logoutForm').submit()">Log off</a>
+        </li>
+    </ul>
+    }
+}
+else
+{
+    <ul class="nav navbar-nav navbar-right visible-xs">
+        <li >@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+        <li >@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right hidden-xs" >
+        <li>
+            <a href="@Url.Action("Login", "Account")" class="navbar-login">
+                <img class="pull-right profilepicture visible-sm visible-md visible-lg navbar-login-profilePicture" src="~/Images/DefaultUser.jpg" data-imageid="Calorie.Models.CalorieImage" >
+            </a>
+        </li>    
+    </ul>
+    
+}

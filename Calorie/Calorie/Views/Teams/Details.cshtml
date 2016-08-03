@@ -1,0 +1,230 @@
+﻿@model Calorie.Models.Teams.TeamDetailsVM
+@using Calorie.BusinessLogic.Social
+@using Humanizer
+
+
+@{
+var TeamStats = Calorie.BusinessLogic.TeamLogic.TeamLogic.getActivityStatsForTeam(Model.Team);
+    
+}
+
+@section localcss{
+}
+
+
+@section metatags
+{
+    @{
+        var props = OpenGraph.GetOpenGraphVMForTeam(@Model.Team, Request, Url);
+    }
+
+    <meta property="og:type" content="@props.type" />
+    <meta property="og:title" content="@props.title" />
+    <meta property="og:description" content="@props.description" />
+    <meta property="og:image" content="@props.image" />
+}
+
+
+
+<div class="row">
+    <div class="col-xs-12">
+        @Html.Partial("..\\Social\\_SocialPartial", Social.GetSocialVMForTeam(@Model.Team, Request, Url))
+        @if (Model.IsAdmin)
+        {
+            <a href="@Url.Action("Edit", "Teams", new {id = @Model.Team.ID})" class="btn btn-sm btn-default pull-right">
+                <span class="glyphicon glyphicon-pencil"></span>&nbsp;Edit
+            </a>
+        }
+        <br/>
+        <br/>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-xs-12">
+        @Html.Partial("..\\Teams\\_TeamPartial", new Calorie.Models.Teams.TeamVM() {ShowSelector = false, Team = @Model.Team})
+    </div>
+</div>
+
+<br/>
+
+
+<div class="row">
+    <div class="col-xs-12 col-sm-7 col-md-8">
+        <div class="panel team-details-sponsorship-panel" >
+            <div class="panel-body">
+                <h5><i class="fa fa-money"></i>&nbsp;<b>Sponsorship Total</b></h5>
+                <h1><b><span data-currencycode="GBP" data-currencyamount="@TeamStats.BaseCurrencySponsoredTotal"></span></b>
+                </h1>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-5 col-md-4">
+        <div class="panel">
+            <div class="panel-body">
+                <h5><span class="glyphicon glyphicon-user"></span>&nbsp;<b>Administrator</b></h5>
+                <br/>
+                @if (Model.AdminUser != null)
+                {
+                    @Html.Partial("..\\Account\\_UserPartial", Model.AdminUser)
+                }
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="panel">
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-xs-12">
+                <h5><b>Members</b></h5>
+                <h6><i>In star rating order</i></h6>
+            </div>
+        </div>
+        <br/>
+        <div class="row">
+            @{
+                foreach (var item in Model.Team.Members.OrderByDescending(Calorie.BusinessLogic.UserLogic.GetStarsForUser).Select((value, i) => new {idx = i + 1, value}))
+                {
+                    <div class="col-xs-12 col-sm-4 col-md-4 col-xl-3 team-details-member">
+                        <div class="team-details-member-ordinal" >
+                            <i>@item.idx.ToOrdinalWords().Humanize(LetterCasing.Title)</i>
+                        </div>
+                        @Html.Partial("..\\Account\\_UserPartial", item.value)
+                    </div>
+                }
+            }
+        </div>
+    </div>
+</div>
+
+
+@{
+        var SponsorshipData = Calorie.BusinessLogic.TeamLogic.TeamLogic.getChartDataForSponsorshipPerUser(Model.Team);
+        var SessionsData = Calorie.BusinessLogic.TeamLogic.TeamLogic.getChartDataForSessionsPerUser(Model.Team);
+        var HoursData = Calorie.BusinessLogic.TeamLogic.TeamLogic.getChartDataForHoursPerUser(Model.Team);
+        var CaloriesData = Calorie.BusinessLogic.TeamLogic.TeamLogic.getChartDataForCaloriesPerUser(Model.Team);
+        var MilesData = Calorie.BusinessLogic.TeamLogic.TeamLogic.getChartDataForMilesPerUser(Model.Team);
+        var RaisedData = Calorie.BusinessLogic.TeamLogic.TeamLogic.getChartDataForRaisedPerUser(Model.Team);
+
+}
+
+<div class="calorie-grey pledge-bar">
+    <div class="row">
+        <div class="col-xs-12">
+            <h5><b>Team Stats</b></h5>
+        </div>
+    </div>
+    <br/>
+    @Html.Partial("..\\Teams\\_TeamStatsOverviewPartial", TeamStats)
+    <br/>
+
+    @if (TeamStats.BaseCurrencySponsoredTotal != 0 | TeamStats.BaseCurrencySponsoredTotal != 0 | TeamStats.Calories != 0 | TeamStats.Hours != 0 | TeamStats.Miles != 0 | TeamStats.Sessions != 0)
+    {
+        <div class="row">
+            @Html.Partial("..\\Shared\\_ChartPartial", SponsorshipData)
+            @Html.Partial("..\\Shared\\_ChartPartial", SessionsData)
+            @Html.Partial("..\\Shared\\_ChartPartial", HoursData)
+            @Html.Partial("..\\Shared\\_ChartPartial", CaloriesData)
+            @Html.Partial("..\\Shared\\_ChartPartial", MilesData)
+            @Html.Partial("..\\Shared\\_ChartPartial", RaisedData)
+        </div>
+    }
+
+</div>
+
+<br />
+
+@if (Model.CurrentSponsorships.Any())
+{
+    <div class="calorie-grey pledge-bar">
+        <div class="row">
+            <div class="col-xs-12">
+                <h5><b>Current Sponsorships</b></h5>
+            </div>
+        </div>
+        @Html.Partial("..\\Pledges\\_PledgePartialList", new Calorie.Models.Pledges.PledgePartialListVM() {Pledges = Model.CurrentSponsorships, Animate = true})
+    </div>
+    
+}
+<br/>
+
+
+@if (Model.ArchivedSponsorships.Any())
+{
+    <div class="calorie-grey pledge-bar">
+        <div class="row">
+            <div class="col-xs-12">
+                <h5><b>Archived Sponsorships</b></h5>
+            </div>
+        </div>
+        @Html.Partial("..\\Pledges\\_PledgePartialList", new Calorie.Models.Pledges.PledgePartialListVM() {Pledges = Model.ArchivedSponsorships, Animate = true})
+    </div>    
+}
+
+<br/>
+
+
+@if (Model.IsAdmin)
+{
+    <div class="panel">
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-xs-12">
+                    <h5>ADMIN - MEMBERS PENDING APPROVAL</h5>
+                </div>
+            </div>
+            <br/>
+            @if (Model.Team.JoinRequests.Any())
+            {
+                <div class="row">
+                    @foreach (var R in Model.Team.JoinRequests)
+                    {
+                        <div class="col-xs-12 col-sm-4 team-details-joinrequest ">
+                            <div class="btn btn-default btn-sm " data-userid="@R.UserID" onclick="ApproveUserClicked(event)" data-checked="false">
+                                <div class="row">
+                                    <div class="col-xs-10">
+                                        @Html.Partial("..\\Account\\_UserPartial", R.User)
+                                    </div>
+                                    <div class="col-xs-1">
+                                        <span id="tickbox" class="calorie-green-color glyphicon glyphicon-ok pull-right team-details-joinrequest-tickbox" ></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                </div>
+
+
+                using (Html.BeginForm("ApproveJoinRequests", "Teams", FormMethod.Post, new {@class = "form-horizontal", role = "form"}))
+                {
+
+                    @Html.AntiForgeryToken()
+
+                    <input name="thisTeamID" type="hidden" value="@Model.Team.ID">
+                    <div id="ApprovedUserIDs"></div>
+                    <input id="JoinRequestApproveButton" type="submit" value="Approve" class="btn btn-warning pull-right"/>
+                }
+
+            }
+            else
+            {
+                <h6><i>No Requests Pending</i></h6>
+            }
+
+        </div>
+
+    </div>
+    
+<script src="~/Scripts/Calorie/Teams/Details.js"></script>
+}
+
+
+
+
+
+

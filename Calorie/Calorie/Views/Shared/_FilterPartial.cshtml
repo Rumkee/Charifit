@@ -1,0 +1,40 @@
+﻿@model Calorie.Models.Misc.FilterVM
+
+
+<div class="row">
+    <div class="col-xs-12">
+
+        <select id="" class="form-control input-sm pull-right calorie-dropdownmenu bordered filter-type">
+            @foreach (var opt in @Model.Options.Select((o, i) => new {opt = o, Idx = i + 1}))
+            {
+                if (opt.Idx == 1)
+                {
+                    <option value="@opt.Idx" selected="selected">@opt.opt</option>
+                }
+                else
+                {
+                    <option value="@opt.Idx">@opt.opt</option>
+                }
+
+            }
+
+        </select>
+
+        <select id="" class="form-control input-sm pull-right user-success calorie-dropdownmenu bordered filter-count">
+            <option value="1">1</option>
+            <option value="5">5</option>
+            <option value="10" selected="selected">10</option>
+            <option value="10000">All</option>
+        </select>
+        <span class="pull-right">&nbsp;&nbsp;</span>
+
+
+        <i id="filter-icon" class="fa fa-filter pull-right vertical-align-icon" aria-hidden="true"></i>
+        <i id="filter-icon-spinner" style="display: none" class="fa fa-circle-o-notch fa-spin-2x calorie-green-color pull-right vertical-align-icon"></i>
+
+
+    </div>
+</div>
+<script src="~/Scripts/Calorie/Shared/_FilterPartial.js"></script>
+
+

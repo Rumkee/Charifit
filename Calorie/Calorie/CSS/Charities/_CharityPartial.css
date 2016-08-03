@@ -1,0 +1,24 @@
+﻿
+    .charityPanelBody {
+        margin-bottom: 0; padding-top: 0;padding-bottom: 0;
+    }
+
+    .charityPanelHeading {
+        padding-bottom: 0
+    }
+
+    .fulldetails {
+        padding: 5px 15px 5px 5px;
+    }
+    .charityDetailsHeader {
+       line-height: 80%; margin-bottom: 10px 
+    }
+    .registeredCharityNumber {
+        font-size: x-small
+    }
+    .charityDescription {
+        margin-left: 30px; margin-right: 30px
+    }
+
+
+

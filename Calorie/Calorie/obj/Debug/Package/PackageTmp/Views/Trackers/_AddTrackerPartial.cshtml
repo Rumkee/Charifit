@@ -1,0 +1,35 @@
+﻿@model Calorie.Models.Trackers.AddTrackerVM
+    
+@{
+
+    string URL = Url.Action(Model.ITracker.AuthenticateActionName, "Trackers", null, Request.Url.Scheme);
+}
+
+
+<div class="row tracker">
+    <div class="col-sm-5">
+        <img src="@Url.Content(string.Format("~/Images/{0}", @Model.ITracker.LogoURL))" />
+    </div>
+    <div class="col-sm-7">
+        @if (Model.UserTracker != null && Model.UserTracker.AuthToken != null)
+        {
+            <div class="btn-group pull-right ">
+                <a class="btn btn-default " href="@Model.ITracker.ManageURL"><i class="fa fa-cogs" aria-hidden="true"></i>&nbsp;&nbsp;Manage</a>
+                <a class="btn btn-default  disabled "><span class="calorie-green-color glyphicon glyphicon-ok"></span>&nbsp;&nbsp;Account Linked</a>
+
+            </div>
+
+        }
+        else
+        {
+            <a  class="btn btn-default pull-right" href="@URL"><span class="glyphicon glyphicon-link"></span>&nbsp;&nbsp;Link Account</a>
+        }
+
+    </div>
+
+
+</div>
+
+
+
+

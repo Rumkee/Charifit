@@ -1,0 +1,73 @@
+﻿@using Calorie.BusinessLogic.Social
+@model Calorie.Models.Charities.CharityDetailsVM
+
+
+@section metatags
+{
+    @{
+        var props = OpenGraph.GetOpenGraphVMForCharity(@Model.Charity, Request, Url);
+    }
+
+    <meta property="og:type" content="@props.type" />
+    <meta property="og:title" content="@props.title" />
+    <meta property="og:description" content="@props.description" />
+    <meta property="og:image" content="@props.image" />
+}
+
+
+
+@Html.Partial("..\\Social\\_SocialPartial", Social.GetSocialVMForCharity(@Model.Charity, Request, Url))
+<br/>
+<br/>
+
+
+
+        <div class="row">
+            <div class="col-xs-12">
+                @Html.Partial("..\\Charities\\_CharityPartial", new Calorie.Models.Charities.CharityVM() { Charity = Model.Charity, ShowSelector = false })
+
+            </div>
+        </div>
+
+            <br />
+        <div class="row">
+            <div class="col-xs-12 col-sm-6 col-lg-4 col-xl-3">
+                <div class="panel">
+                    <div class="panel-body">
+                        <h5><i class="fa fa-money"></i>&nbsp;<b>Raised</b></h5>
+                        <h6><i>@Model.NoOfRaised Individual Sponsorships</i></h6>
+                        <h1><b><span data-currencycode="GBP" data-currencyamount="@Model.TotalRaised"></span></b></h1>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-lg-4 col-xl-3">
+                <div class="panel">
+                    <div class="panel-body">
+                        <h5><i class="fa fa-money"></i>&nbsp;<b>Pledged</b></h5>
+                        <h6><i>@Model.NoOfPledges Individual Sponsorships</i></h6>
+                        <h1><b><span data-currencycode="GBP" data-currencyamount="@Model.TotalPledged"></span></b></h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row">
+            @Html.Partial("..\\Shared\\_ChartPartial", Model.UserPledgedChartData)
+            @Html.Partial("..\\Shared\\_ChartPartial", Model.TeamPledgedChartData)
+        </div>
+
+
+<br />
+@if (Model.CurrentPledges.Any())
+{
+
+    <div class="calorie-grey pledge-bar">
+        <div class="row">
+            <div class="col-xs-12">
+                <h5><b>Current Pledges</b></h5>
+            </div>
+        </div>
+        @Html.Partial("..\\Pledges\\_PledgePartialList", new Calorie.Models.Pledges.PledgePartialListVM() {Pledges = Model.CurrentPledges, Animate = true})
+    </div>
+
+}

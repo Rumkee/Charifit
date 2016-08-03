@@ -1,0 +1,251 @@
+﻿
+@using System.Configuration
+@using Recaptcha.Web.Mvc
+@model Calorie.Models.RegisterViewModel
+
+@section localcss
+{
+    <link rel="stylesheet" type="text/css" href="~/CSS/Account/Register.css">
+}
+
+
+
+
+
+<div class="panel " >
+    <div class="panel-body">
+
+        <div class="row">
+            <div class="col-xs-12">
+                <h5><b>Create A New Account</b></h5>
+                <h6><i>Just need to get a few details...</i></h6>
+            </div>
+        </div>
+        <br />
+      
+        <div class="row">
+
+
+            @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+
+                @Html.ValidationSummary("", new { @class = "text-danger" })
+
+
+                <div class="form-group">
+                    <div class="col-xs-12 col-sm-6 col-sm-offset-3 has-feedback open">
+                        <h6 class="InputLabel">Username</h6>
+                    </div>
+                        
+                    <div id="usernameInputGroup" class="col-xs-12 col-sm-6 col-sm-offset-3 has-feedback open">
+
+                        <input class="form-control user-success" data-val="true" data-val-required="The Username field is required." id="usernameInput" name="Username" type="text" value="">                        
+                        <span id="usernameInputResult" class="form-control-feedback"></span>                            
+                        <h6 class="text-danger" id="usernameValidationMsg" >Username is already in use</h6>
+                
+                        </div>
+
+
+
+                        <div class="col-xs-12 col-sm-6 col-sm-offset-3">
+
+                            <h6 class="InputLabel">Email Address</h6>
+                            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+
+                        </div>
+
+
+
+                        <div class="col-xs-12 col-sm-6 col-sm-offset-3">
+                            <h6 class="InputLabel">Password</h6>
+                            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                        </div>
+
+
+
+                        <div class="col-xs-12 col-sm-6 col-sm-offset-3">
+                            <h6 class="InputLabel">Confirm Password</h6>
+                            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+                        </div>
+
+                        <div class="col-xs-12 col-sm-6 col-sm-offset-3">
+                            @Html.HiddenFor(m => m.ProfilePictureImageID, new { @class = "form-control " })
+                            <h6 class="InputLabel">Profile Picture</h6>
+                            @Html.HiddenFor(m => m.ProfilePictureImageID, new { @class = "form-control" })
+                            @Html.Partial("..\\Image\\_ImageUpload", new Calorie.Models.CalorieImageUpload() { ThisElementID = "ProfilePictureDiv", HiddenForElementID = "ProfilePictureImageID", Type = Calorie.Models.CalorieImage.ImageType.UserImage })
+                            <br />
+                            <div>
+                                <a onclick="ProfilePicLucky(event)" onmouseover="this.style.cursor='pointer'" class="smallFont" ><i>I'm feeling lucky</i></a>
+                                <div id="LuckySpinner" ></div>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+
+                <div class="form-group">
+
+                    <div class="col-xs-12 col-sm-6 col-sm-offset-3 ">
+                        <table class="table table-striped">
+                            <tr>
+                                <td>
+
+                                    <div class="col-xs-12">
+                                        <div class="row">
+                                            <div class="col-xs-10">
+                                                <h6 class="InputLabel">I might want to pledge donations to charities</h6>
+                                            </div>
+                                            <div class="col-xs-2">
+                                                @Html.CheckBoxFor(m => m.IsSponsor, new {@class = "form-control registration-checkbox"})
+                                                @Html.Partial("..\\Shared\\_Checkbox", "IsSponsor")
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+
+                                    <div class="col-xs-12">
+                                        <div class="row">
+                                            <div class="col-xs-10">
+                                                <h6 class="InputLabel">I might want to log my exercise activities</h6>
+                                            </div>
+                                            <div class="col-xs-2">
+                                                @Html.CheckBoxFor(m => m.IsExercisor, new {@class = "form-control registration-checkbox"})
+                                                @Html.Partial("..\\Shared\\_Checkbox", "IsExercisor")
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+
+                                    <div class="col-xs-12">
+                                        <div class="row">
+                                            <div class="col-xs-10">
+                                                <h6 class="InputLabel">Create a corporate account</h6>
+                                            </div>
+                                            <div class="col-xs-2">
+                                                @Html.CheckBoxFor(m => m.IsCorporate, new {@class = "form-control registration-checkbox"})
+                                                @Html.Partial("..\\Shared\\_Checkbox", "IsCorporate")
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+
+                                    <div class="col-xs-12">
+                                        <div class="row">
+                                            <div class="col-xs-10">
+                                                <h6 class="InputLabel">Receive important emails from us</h6>
+                                            </div>
+                                            <div class="col-xs-2">
+                                                @Html.CheckBoxFor(m => m.FirstPartyEmails, new {@class = "form-control registration-checkbox",})
+                                                @Html.Partial("..\\Shared\\_Checkbox", "FirstPartyEmails")
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+
+                                    <div class="col-xs-12">
+                                        <div class="row">
+                                            <div class="col-xs-10">
+                                                <h6 class="InputLabel">Spam</h6>
+                                            </div>
+                                            <div class="col-xs-2">
+                                                @Html.CheckBoxFor(m => m.ThirdPartyEmails, new {@class = "form-control registration-checkbox"}) @*, @style = "height:20px;min-width:25px"*@
+                                                @Html.Partial("..\\Shared\\_Checkbox", "ThirdPartyEmails")
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+
+                                    <div class="col-xs-12 ">
+                                        <div class="row">
+                                            <div class="col-xs-10">
+                                                <h6 class="InputLabel">Accept Terms & Conditions</h6>
+                                            </div>
+                                            <div class="col-xs-2">
+                                                @Html.CheckBoxFor(m => m.AcceptTAndCs, new {@class = "form-control registration-checkbox"})
+                                                @Html.Partial("..\\Shared\\_Checkbox", "AcceptTAndCs")
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+
+                </div>
+
+
+
+                <div class="col-xs-12 ">
+                    <div class="pull-right">
+                        <br/>
+                        <br/>
+                        <br/>
+                        @Html.Recaptcha(theme: Recaptcha.Web.RecaptchaTheme.Clean)
+                        <br/>
+                        <input id="registerBtn" type="submit" class="btn btn-default pull-right" value="Register"/>
+                        
+                    </div>
+                </div>
+                
+           }
+            @if (ConfigurationManager.AppSettings["ISSANDBOX"].ToLower() == "true")
+            {
+                <div class="col-xs-12">
+                    <br/>
+                    <button class="btn btn-danger pull-right" id="auto">AutoMagic ™</button>
+                </div>
+                      
+            }
+            
+        </div>
+        
+    </div>
+
+
+</div>
+
+
+
+<script id="registerScript"
+        data-saveimagefromurl="@Url.Action("SaveImageFromURLWithDelete", "Image")"
+        data-getimage="@Url.Action("GetImage","Image")" 
+        src="~/Scripts/Calorie/Account/register.js"> </script>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+}
+

@@ -1,0 +1,35 @@
+﻿@model Calorie.Models.Social.SocialVM
+
+@{
+    var ID = Guid.NewGuid();   
+}
+
+<div class="pull-right btn btn-sm no-shadow facebook-colour sharebutton" onclick="calorie.social.facebookShare('@Model.ShareURL', '@Model.Blurb',event)" >
+    <i class="fa fa-facebook "></i>
+</div>
+
+<div class="pull-right btn btn-sm no-shadow linkedin-colour sharebutton" onclick="calorie.social.linkedInShare('@Model.ShareURL', '@Model.Blurb',event)" >
+    <i class="fa fa-linkedin "></i>
+</div>
+
+<div class="pull-right btn btn-sm no-shadow twitter-color sharebutton" onclick="calorie.social.twitterShare('@Model.ShareURL','@Model.Blurb',event)" >
+    <i class="fa fa-twitter"></i>
+</div>
+
+<div class="pull-right btn btn-sm btn-default no-shadow sharebutton likebutton" onclick="calorie.social.likes.likeClick(event, '@Model.Type.ToString()', '@Model.LinkID', $('#@ID'))">
+    <i class="fa fa-heart-o "></i>
+    <div class="sharetext">x<span id="@ID"></span></div>
+</div>
+
+<script>
+    $(function() {
+        calorie.social.likes.count('@Model.Type.ToString()', '@Model.LinkID', function(e) {
+            $("#@ID").empty();
+            $("#@ID").append(e);
+        });
+    });
+</script>
+
+
+
+   

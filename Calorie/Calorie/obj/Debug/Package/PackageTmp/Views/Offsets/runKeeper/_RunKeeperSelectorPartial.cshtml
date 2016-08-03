@@ -1,0 +1,254 @@
+﻿@model Calorie.Models.Offset
+
+
+@{
+
+    var Tracker = Model.Offsetter.Trackers.FirstOrDefault(t => t.Type ==Calorie.Models.Trackers.Tracker.TrackerType.RunKeeper);
+    var token = "";
+    if (Tracker != null)
+    {
+        token = Tracker.AuthToken;
+    }
+
+    var UsedIdents = Model.Offsetter.Offsetters.Select(o => o.ThirdPartyIdentifier);
+    var AllowedActivities = Model.Pledge.Activity_Types.Select(t => t.Activity);
+
+
+}
+
+@if (Tracker!=null)
+{
+
+
+@*<script src="~/Scripts/Calorie/Trackers/runKeeperSelectorPartial.js"></script>*@
+    <script>
+
+
+        var runKeeperLoadPastAcitivitiesURL = '@Url.Action("RunKeeperGetPastActivities", "Trackers")';
+        var runKeeperLoadSpecificActivityURL = '@Url.Action("RunKeeperGetSpecificActivity", "Trackers")';
+
+
+        function runKeeperLoadPastAcitivities(pledgeID) {
+
+            $('#RunKeeperHeader').append(calorie.helpers.spinnerHTML);
+
+
+            $.ajax({
+                type: "GET",
+                url: runKeeperLoadPastAcitivitiesURL,
+                data: "pledgeID=" + pledgeID,
+                dataType: 'html',
+                contentType: false,
+                processData: false,
+                cache: false,
+                success: function (response) {
+
+                    var useable = $("#Usable-tab");
+                    var unusable = $("#Unavailable-tab");
+                    var used = $("#Used-tab");
+
+                    
+                    useable.empty();
+                    unusable.empty();
+                    used.empty();
+
+                    var results = $(response);
+
+                    var AvailableResults = results.children("#Available");
+                    var UnavailableResults = results.children("#Unavailable");
+                    var UsedResults = results.children("#Used");
+
+                    useable.append(AvailableResults);
+                    unusable.append(UnavailableResults);
+                    used.append(UsedResults);
+
+                    $("#Usable-tab-badge").html(AvailableResults.data("count")).fadeIn();
+                    $("#Unavailable-tab-badge").html(UnavailableResults.data("count")).fadeIn();
+                    $("#Used-tab-badge").html(UsedResults.data("count")).fadeIn();
+
+                    $('#RunKeeperHeader').children('.spinner').remove();
+                },
+
+                error: function (err) {
+                    alert(err);
+
+                }
+
+            });
+
+
+        }
+
+        function RunKeeperActivityClick(event) {
+
+            var btnDisabler = new calorie.helpers.buttonDisabler();
+            btnDisabler.button = $(event.currentTarget);
+            btnDisabler.disable();
+            var thisItm = $(event.currentTarget);
+            var ID = thisItm.data("activityident");
+            var parent = thisItm.parents(".runKeeperAcitivitySummary");
+
+            //close all the other ones that have been expanded
+            $(".runKeeperAcitivitySummary").each(function (idx, s) {
+                $(s).find(".summarydetails").show();
+                $(s).find(".fulldetails").slideUp();
+
+            });
+
+
+            $.ajax({
+                type: "GET",
+                url: runKeeperLoadSpecificActivityURL,
+                data: "Ident=" + ID,
+                dataType: 'html',
+                contentType: false,
+                processData: false,
+                cache: false,
+                success: function (response) {
+
+
+                    btnDisabler.enable();
+                    parent.find(".summarydetails").hide();
+                    parent.find(".fulldetails").show();
+                    parent.find(".fulldetails").html(response).hide().slideDown();
+
+                    $.when(
+
+
+                    ).then(function () {
+
+
+
+                    });
+
+
+                },
+
+                error: function (err) {
+                    btnDisabler.enable();
+
+                }
+
+            });
+
+        }
+
+        function RunKeeperActivityAdd(event) {
+
+            var btnClicked = $(event.currentTarget);
+
+            var thisBlob = btnClicked.data("jsonblob");
+            var thisIdent = btnClicked.data("activityurl");
+            var meters = btnClicked.data("meters");
+            var secconds = btnClicked.data("secconds");
+            var calories = btnClicked.data("calories");
+            var parent = btnClicked.parents(".fulldetails");
+
+            AddOffset(parent, thisBlob, thisIdent, meters, secconds, calories, "runKeeperActivity");
+
+            }
+
+        $(function() {
+
+            $('#RunKeeperSelector').on('shown.bs.modal', function() {
+                runKeeperLoadPastAcitivities('@Model.Pledge.PledgeID');
+
+            });
+        });
+
+    </script>
+
+
+<div id="RunKeeperSelector" class="modal fade" data-token="@token">
+    <div class="modal-dialog" >
+        <div class="modal-content">
+            <div class="modal-header" @*style="padding: 5px"*@>
+                <div class="row">
+                    
+                    <div class="col-xs-6">
+                        <text id="RunKeeperHeader" style="font-size: x-large"><span style="top:5px"class="glyphicon glyphicon-heart"></span>&nbsp;Activities&nbsp;</text>
+                    </div>
+                    <div class="col-xs-6">
+                        <div class="btn-group pull-right" @*style="padding: 07px 15px 07px 0"*@>
+                            <button type="button" class="btn btn-default btn-sm" data-dismiss="modal" aria-label="Close"><span class="glyphicon glyphicon-remove"></span></button>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <text style="font-size: x-small;"><i>*Powered By </i></text>
+                        <img style="max-width: 100px; max-height: 50px;" src="~/Images/ThirdPartyLogos/runKeeper.png" />    
+                    </div>
+                    
+                </div>
+            </div>
+                        
+                
+            <div class="modal-body">
+                @*
+
+
+    <nav class="navbar navbar-default">
+
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+
+
+            <div class="collapse navbar-collapse" id="myNavbar">*@
+                            <ul class="nav nav-tabs ">
+                                @*<br class="hidden-sm hidden-md hidden-lg hidden-xl" />*@
+                                <li class="active"><a data-toggle="tab" href="#Usable-tab"><span class="glyphicon glyphicon-ok"></span>&nbsp;Usable&nbsp;<span class="badge" id="Usable-tab-badge" style="display: none"></span></a></li>
+                                <li class=""><a data-toggle="tab" href="#Unavailable-tab"><span class="glyphicon glyphicon-remove"></span>&nbsp;Unusable&nbsp;<span class="badge" id="Unavailable-tab-badge" style="display: none"></span></a></li>
+                                <li class=""><a data-toggle="tab" href="#Used-tab"><span class="glyphicon glyphicon-remove"></span>&nbsp;Previously Used&nbsp;<span class="badge" id="Used-tab-badge" style="display: none"></span></a></li>
+
+                            </ul>
+                    @*    </div>
+        </div>
+    </nav>*@
+                    <br />
+                    <div class="tab-content">
+
+                        <div id="Usable-tab" class="tab-pane fade in active">
+
+                            @*These activities from runKeeper match the allowed activities for this pledge*@
+                        </div>
+
+                        <div id="Unavailable-tab" class="tab-pane fade in ">
+
+                            @*These activities from runKeeper do not match the allowed activities for this pledge*@
+
+
+                        </div>
+
+                        <div id="Used-tab" class="tab-pane fade in ">
+
+                            @*These activities from runKeeper have already been used against a pledge*@
+
+
+                        </div>
+
+                    </div>
+
+
+                    @*</div>
+            </div>*@
+
+
+</div>
+
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+
+
+
+}@*@if (Tracker != null)*@

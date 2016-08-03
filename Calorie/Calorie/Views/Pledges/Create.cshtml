@@ -1,0 +1,221 @@
+﻿@model Calorie.Models.Pledges.CreatePledgeVM
+
+@section localcss{
+    <link rel="stylesheet" href="~/CSS/Pledges/Create.css">
+    <link rel="stylesheet" href="~/CSS/Image/ImageGallery.css">
+    <link rel="stylesheet" href="~/CSS/Pledges/_CreateActivitiesPartial.css">
+    <link rel="stylesheet" href="~/CSS/Pledges/_CharitySelectorPartial.css">
+}
+
+<script src="~/Scripts/Calorie/Pledges/createPledge.js"></script>
+
+
+        @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "PledgeForm" }))
+        {
+
+            @Html.AntiForgeryToken()
+
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+            //Story
+            <div class="panel">
+                <div class="panel-body">
+
+                   
+                    <h5>Story</h5>
+                    <h6><i>Tell us something about the story behind why you're making the pledge.</i></h6>
+
+                    <div id="StoryTextEditor"></div>
+                    @Html.ValidationMessageFor(model => model.Pledge.Story, "", new {@class = "text-danger"})
+                    @Html.HiddenFor(model => model.Pledge.Story)
+
+                    <script>
+                        new calorie.textEditor('StoryTextEditor', 'Pledge_Story', 'PledgeForm');
+                    </script>
+
+                </div>
+            </div>
+
+
+            //image gallery
+            @Html.Partial("..\\Image\\_ImageGallery", new Calorie.Models.CalorieImageGalleryVM() { Images = Model.Pledge.Gallery, Editable = true })
+
+
+            //Activities
+            @Html.Partial("..\\Pledges\\Activities\\_CreateActivitiesPartial", Model)
+
+
+
+            //Pledge details
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <h5>Pledge</h5>
+                    <br/>
+                    <div class="form-horizontal">
+
+                        <div class="form-group ">
+
+                            <div class="col-xs-12">
+                                <h6><i>Total amount you are pledging&nbsp;&nbsp;<span  data-help-button-id="PledgeAmountHelp" class="glyphicon glyphicon-question-sign"></span></i></h6>
+                                @Html.Partial("..\\Shared\\_HelpAlert", new Calorie.Models.Misc.HelpAlert() {ID = "PledgeAmountHelp", Message = "If the currency is incorrect, please go to your account settings to change it."})
+                            </div>
+                            <div class="col-xs-12 col-sm-6">
+                                <div class="amount-group form-group has-feedback open" >
+                                    <input  
+                                           class="amount form-control text-box single-line input-validation-error user-success"
+                                           data-val="true"
+                                           data-val-number="The amount must be a number."
+                                           data-val-range="The amount must be between 1 and 9999"
+                                           data-val-range-max="9999"
+                                           data-val-range-min="1"
+                                           data-val-required="The amount is required."
+                                           id="Pledge_Contributors_0__Amount"
+                                           name="Pledge.Contributors[0].Amount"
+                                           type="text"
+                                           value="0.00"/>                                    
+                                    <span   class="currency-symbol form-control-feedback"><b>@Model.CurrencySymbol</b></span>
+                                </div>
+
+                                <h6><i>@Html.ValidationMessageFor(model => model.Pledge.Contributors[0].Amount, "", new {@class = "text-danger"})</i></h6>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-xs-12">
+
+                                <h6><i>Allow others to co-sponsor this pledge with me&nbsp;&nbsp;<span  data-help-button-id="CoSponsorsHelp" class="glyphicon glyphicon-question-sign"></span></i></h6>
+                                @Html.Partial("..\\Shared\\_HelpAlert", new Calorie.Models.Misc.HelpAlert() {ID = "CoSponsorsHelp", Message = "on your pledge page, other users will have the ability to add their own sponsorships in addition to the amount you've pledge."})
+                            </div>
+                            <div class="col-xs-1">
+                                @Html.CheckBoxFor(model => model.Pledge.OpenToOtherContributors, new
+                                {
+                                    @class = "form-control small"
+                                })
+                                @Html.Partial("..\\Shared\\_Checkbox", "Pledge_OpenToOtherContributors")
+                            </div>
+                            @Html.ValidationMessageFor(model => model.Pledge.OpenToOtherContributors, "", new {@class = "text-danger"})
+                        </div>
+
+                        @Html.HiddenFor(model => model.Pledge.Contributors[0].SinnerID, new {htmlAttributes = new {@class = "form-control"}})
+
+
+                    </div>
+                </div>
+            </div>
+
+
+            //Expiry
+            <div class="panel panel-default">
+
+                <div class="panel-body">
+                    <h5>Expiry</h5>
+                    <div class="form-horizontal">
+
+                        <div class="form-group ">
+
+                            <div class="col-xs-12">
+                                <h6><i>Date on which this pledge becomes void if the activities target is not met. Expires at midnight coordinated universal time</i></h6>
+                            </div>
+                            <div class="col-xs-12 col-sm-6">
+                                @{
+                                    var DefaultExpiry = DateTime.Now.AddYears(1).ToString("yyyy-MM-dd");
+                                }
+                                <input  class="full-width text-box single-line user-success" data-val="true" data-val-date="The ExpiryDate must be a date." data-val-required="The Expiry date is required." id="Pledge_ExpiryDate" name="Pledge.ExpiryDate" type="date" value="@DefaultExpiry">
+
+                                <h6><i>@Html.ValidationMessageFor(model => model.Pledge.ExpiryDate, "", new {@class = "text-danger"})</i></h6>
+                            </div>
+
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            
+            //charity selector
+            <div class="panel panel-default ">
+
+                <div class="panel-body  buttoned-panel">
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <h5>Charity</h5>
+
+                        </div>
+                        <div class="col-xs-6">
+
+                            <div class="btn-group pull-right">
+
+                                <a onclick="btnAddCharity(event)" class="btn btn-default btn-sm ">
+                                    <span class="glyphicon glyphicon-plus"></span>&nbsp;Select Charity
+                                </a>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    @Html.HiddenFor(model => model.JustGivingCharityID, new {htmlAttributes = new {@class = "form-control"}})
+
+                    @Html.ValidationMessageFor(model => model.JustGivingCharityID, "", new {@class = "text-danger"})
+
+                    @*selected charity*@
+
+                    <div id="charityContainer" style="display: none">
+                    </div>
+
+
+                </div>
+
+                @Html.Partial("..\\Pledges\\Charity\\_CharitySelectorPartial", Calorie.BusinessLogic.CharityLogic.GetTopCharities())
+                
+            </div>
+
+
+            //Teams
+            <div class="panel panel-default ">
+                <div class="panel-body buttoned-panel">
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <h5>Teams</h5>
+
+                        </div>
+                        <div class="col-xs-6">
+
+                            <div class="btn-group pull-right">
+
+                                <a onclick="btnPickTeam(event)" class="btn btn-default btn-sm ">
+                                    <span class="glyphicon glyphicon-plus"></span>&nbsp;Add Team
+                                </a>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <h6><i>Add Teams if you want your pledge to be available only to team members, otherwise leave empty for the pledge to be open to everyone.</i></h6>
+                    <br/>
+
+                    <table id="selectedTeams" class="table table-striped"></table>
+
+                    <div id="hiddenTeamNodes"></div>
+                </div>
+
+                @Html.Partial("..\\Teams\\_TeamSelectorPartial", (List<Calorie.Models.Teams.Team>) ViewBag.Teams)
+                
+            </div>
+            
+            //submit
+            <p></p>
+            <input type="submit" value="Create" class="btn btn-default pull-right ">
+
+}
+
+                      
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+

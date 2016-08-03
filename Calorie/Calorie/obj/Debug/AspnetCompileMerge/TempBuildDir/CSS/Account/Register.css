@@ -1,0 +1,17 @@
+﻿
+    #usernameValidationMsg {
+        margin:0; margin-bottom:10px;display:none;font-style:italic
+    }
+
+    #LuckySpinner {
+       display:inline; 
+    }
+    .smallFont {
+        font-size:small
+    }
+
+    .registration-checkbox {
+        height:20px;-moz-min-width:25px;-ms-min-width:25px;-o-min-width:25px;-webkit-min-width:25px;min-width:25px
+    }
+
+  

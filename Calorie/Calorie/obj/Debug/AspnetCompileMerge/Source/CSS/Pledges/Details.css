@@ -1,0 +1,54 @@
+﻿
+
+
+
+
+
+/*pledge amount partial*/
+.pledgeAmountPanel {
+        min-height: 169px;
+}
+
+.pledgeAmountPanel .fa-user-secret{
+        font-size: 50px;
+}
+
+.pledgeAmountPanel .amount {
+        font-size: x-large; font-weight: bold;
+}
+
+
+.timezone-block {
+    font-style: italic; font-size: small;
+}
+
+.timezone-block .form-control{
+   color: black;
+    border-color: transparent; 
+    background-color: transparent; 
+    width: 150px; 
+    font-size: small; 
+    height: 20px; 
+    padding: 0; 
+    border: 0;
+}
+
+.timezone-block .glyphicon-globe{
+  margin-top: 3px; 
+}
+
+#localTime {
+  text-align: center; margin: 0  
+} 
+
+.countdownclock {
+    margin: 15px 15px 15px 0;
+}
+
+.totalOffsetAmount {
+    font-size: x-large
+}
+
+.pledge-gallary-image {
+    padding: 10px
+}

@@ -1,0 +1,13 @@
+﻿
+    .addCoSponsorship .amount-group{
+        margin: 0;   
+    }
+
+    .addCoSponsorship .amount-group > input{
+      padding-left: 75px;
+    }
+   
+     .addCoSponsorship .amount-group .currency-ident{
+      left: 5px;width: 70px;
+    }
+    

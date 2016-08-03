@@ -1,0 +1,127 @@
+﻿@model Calorie.Models.Pledges.Pledge
+
+@{
+    var URL = Url.Action("GetImage", "Image");
+    var Status = Calorie.BusinessLogic.PledgesLogic.GetPledgeStatus(Model);
+}
+
+
+<a href=@Url.Action("Details", "Pledges", new {id = @Model.PledgeID}) >
+    <div class="col-xs-12 col-sm-6 col-lg-4 col-xl-3 " >
+        <div class="panel pledgePartial2 " id="pledgePartial2-@Model.PledgeID"  >
+            <div class="panel-body">
+
+                <!--CharityLogo-->
+                <div class="row">
+                    <div class="col-xs-12">
+                        @if (Model.Charity != null)
+                        {
+                            <img src="@Model.Charity.JustGivingCharityImageURL?template=size120x120&imagetype=charitybrandinglogo" class="center pledgeParial2Img"/>
+                        }
+                    </div>
+                </div>
+
+                <!--Pledge Amount -->
+                <div class="row">
+                    <div class="col-xs-12 center">
+                        @Html.Partial("..\\Pledges\\_TotalAmountPartial", Model.Contributors)
+                    </div>
+                </div>
+                <hr class="pledgePartial2-hr"/>
+
+                <!--Teams-->               
+                <div class="row">
+                    <div class="col-xs-12 text-center">
+
+                        <span class="pull-left glyphicon glyphicon-flag vertical-align-fa-icon" data-toggle="tooltip" title="Teams"></span>
+
+                         
+                        @foreach (var t in Model.Teams.Take(5))
+                        {
+                            var src = URL + "?ImageID=" + t.ImageID + "&Thumb=true";
+                            <div  class="inline-block">
+                                <img class="pull-left team-image"  src=@src data-imageid="@t.ImageID.ToString()" data-toggle="tooltip" title="@t.Name"/>
+                            </div>
+                        }
+                        @if (!Model.Teams.Any())
+                        {
+                            @:
+                            <div  class="inline-block">All Teams</div>
+                        }
+
+
+                    </div>
+
+                </div>
+
+                <hr class="pledgePartial2-small-margin-hr" />
+                <!--Activities-->
+                <div class="row " >
+
+                    <div class="col-xs-12 text-center" >
+
+                        <span  class="pull-left fa fa-heartbeat vertical-align-fa-icon" data-toggle="tooltip" title="Activities"></span>
+
+                        @foreach (var activity in Model.Activity_Types.Take(5))
+                        {
+                            var imgName = "~/Images/Activities/" + activity.Activity + ".png";
+                            <div  class="inline-block">
+                                <img src="@Url.Content(@imgName)" class="text-center" data-toggle="tooltip" title="@activity.Activity.ToString().Replace("_", " ")"/>
+                            </div>
+                        }
+                        @if (!Model.Activity_Types.Any())
+                        {
+                            <span >All Activities</span>
+                        }
+
+                    </div>
+
+                    <!--Activity Description-->
+                    <div class="col-xs-12 text-center">
+                        <span  class="pull-left fa fa-heartbeat vertical-align-fa-icon hidden-icon" data-toggle="tooltip" title="Activities"></span>
+                        <div  class="inline-block"> @Model.Activity_Amount @Model.Activity_Units.ToString()</div>
+                    </div>
+
+                </div>
+
+                <hr class="pledgePartial2-small-margin-hr" />
+
+                <!--Deadline-->
+                <div class="row text-center " >
+                    <div class="col-xs-12">
+                        <i class="fa fa-calendar pull-left vertical-align-fa-icon" data-toggle="tooltip" title="Expiry Date"></i>
+                        <div  class="inline-block">
+                            <span data-date="@Model.ExpiryDate.AddDays(-1).ToLongDateString()"></span>                            
+                            @if (Status == Calorie.BusinessLogic.PledgesLogic.PledgeStatus.Expired)
+                            {
+                                <span class="expired" > (Expired)</span>
+                            }
+                        </div>
+                    </div>
+
+                    
+                    
+                </div>
+                
+                <hr class="pledgePartial2-final-margin-hr"/>
+                
+                <div class="row">
+
+                    <!--User Partial-->
+                    <div class="col-xs-10">
+                        @Html.Partial("..\\Account\\_UserPartial", @Model.Originator.Sinner)
+                    </div>
+
+
+                    <!--Progress Circle-->
+                    <div class="col-xs-2">
+                        <div class="pull-right" @*style="height: 50px; width: 50px"*@>
+                            @Html.Partial("..\\Pledges\\Charts\\_MiniDonutChart", new Calorie.Models.Misc.DonutChartVM(Calorie.BusinessLogic.PledgesLogic.getMiniProgressChartData(Model), true) {centerLabel = true, ShowLabels = true, Size = 50, Animate = true})
+                        </div>
+                    </div>
+                </div>
+              
+            </div>
+        </div>
+    </div>
+</a>

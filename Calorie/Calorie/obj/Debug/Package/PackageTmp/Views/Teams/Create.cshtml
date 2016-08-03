@@ -1,0 +1,80 @@
+﻿@model Calorie.Models.Teams.Team
+
+
+<div class="panel">
+    <div class="panel-body ">
+        <h4>Create a new Team.</h4>
+        <br/>
+
+        @using (Html.BeginForm("Create", "Teams", FormMethod.Post, new {@class = "form-horizontal", role = "form", id = "CreateTeamForm"}))
+        {
+
+
+            @Html.AntiForgeryToken()
+
+            @Html.ValidationSummary("", new {@class = "text-danger"})
+
+
+
+            <h5>Name</h5>
+            <div id="teamInputGroup" class="input-group">
+                @Html.TextBoxFor(m => m.Name, new {@class = "form-control", @id = "teamInput"})
+                <span id="teamInputResult" class="input-group-addon"></span>
+            </div>
+            <br/>
+
+
+        @*Description*@
+            <h5>Description</h5>
+            <h6><i>Tell us about your Team.</i></h6>
+
+            <div id="StoryTextEditor"></div>
+            @Html.ValidationMessageFor(model => model.Description, "", new {@class = "text-danger"})
+            @Html.HiddenFor(model => model.Description)
+
+            <script>
+                new calorie.textEditor('StoryTextEditor', 'Description', 'CreateTeamForm');
+            </script>
+            <br/>
+
+
+        @*Image*@
+            @Html.HiddenFor(m => m.ImageID, new {@class = "form-control "})
+
+            <h5>Photo</h5>
+            <h6><i>Upload a Photo of your team.</i></h6>
+            @Html.HiddenFor(m => m.ImageID, new {@class = "form-control"})
+            @Html.Partial("..\\Image\\_ImageUpload", new Calorie.Models.CalorieImageUpload() {HiddenForElementID = "ImageID", Type = Calorie.Models.CalorieImage.ImageType.TeamImage})
+
+            <br/>
+            <br/>
+
+
+        @*Access*@
+
+            <h5>Availability</h5>
+            @Html.EnumDropDownListFor(model => model.Availability, htmlAttributes: new {@class = "form-control"})
+            @Html.ValidationMessageFor(model => model.Availability, "", new {@class = "text-danger"})
+
+            <br/>
+
+            <div class="form-group">
+                <div class="col-xs-12">
+                    <input id="teamCreateBtn" type="submit" value="Create" class="btn btn-default pull-right"/>
+                </div>
+            </div>
+
+        }
+
+    </div>
+</div>
+
+
+<script src="~/Scripts/Calorie/Teams/CreateTeam.js"></script>
+<script>
+    var createTeamURL = '@Url.Action("CheckTeamName", "Teams")';   
+</script>
+
+@section Scripts {
+@Scripts.Render("~/bundles/jqueryval")
+}

@@ -1,0 +1,15 @@
+﻿@model Calorie.Models.CalorieImage
+@*ImageID*@
+
+@{
+
+    if (@Model.CalorieImageID > 0)
+    {
+
+        var URL = Url.Action("GetImage", "Image");
+        var src = URL + "?ImageID=" + Model.CalorieImageID.ToString() + "&Thumb=true";
+        <img src=@src data-imageid="@Model.CalorieImageID.ToString()"/>
+        
+    }
+
+}

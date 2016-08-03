@@ -1,0 +1,104 @@
+﻿@using Calorie.Models
+@model LoginViewModel
+
+
+@using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form", @id="loginform" }))
+    {
+    @Html.AntiForgeryToken()
+
+
+    <h6 class="validation-margin"><i>@Html.ValidationSummary(true, "", new { @class = "text-danger" })</i></h6>
+
+    <div class="row">
+        <div class="col-xs-12">
+            <h6  class="InputLabel">Username or Email</h6>
+        </div>
+
+        <div class="col-xs-12">
+            @Html.EditorFor(model => model.UsernameOrEmail, new { htmlAttributes = new { @class = "form-control input-sm" } })
+            <h6 class="validation-margin"><i>@Html.ValidationMessageFor(model => model.UsernameOrEmail, "", new { @class = "text-danger" })</i></h6>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12">
+            <h6  class="InputLabel">Password</h6>
+        </div>
+        <div class="col-xs-12">
+            @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control input-sm" } })
+            <h6 style="margin:0"><i>@Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })</i></h6>
+
+            <h6 class="validation-margin"><i>@Html.ActionLink("Forgotten password?", "ForgotPassword", "Account")</i></h6>
+
+        </div>
+    </div>
+   
+    <div class="row">
+        <div class="col-xs-9">
+            <h6  class="InputLabel">Remember Me</h6>
+        </div>
+        <div class="col-xs-2 rememberMeCheckbox">
+            @Html.CheckBoxFor(m => m.RememberMe, new { @class = "form-control input-sm" })
+            @Html.Partial("..\\Shared\\_Checkbox", "RememberMe")
+        </div>
+    </div>
+    <br />
+        <div class="row">
+            <div class="col-xs-12">
+
+                <button id="partialLoginBtn" onclick="LogInPartial(event)" type="submit" value="Log in" class="button-padding btn btn-default full-width" >
+                    <span class="pull-left">
+                        <i class="fa fa-sign-in vertical-align-fa-icon" aria-hidden="true"></i>
+                    </span>
+                    Log in
+                </button>
+                <h5 class="login-validationerror" ><i><span class="text-danger field-validation-error" ><span id="LogInFailMsg" style="display: none;">Log in failed etc etc</span></span></i></h5>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-12">
+                <a  href="@Url.Action("Register", "Account")" class="login-singupemail button-padding full-width btn btn-default no-shadow ">
+                    <i class="pull-left fa fa-user-plus vertical-align-fa-icon" ></i>&nbsp;Sign up with email
+                </a>    
+            </div>
+        </div>
+        
+       
+
+}
+
+<script id="_loginPartial" data-loginmodal-url="@Url.Action("LoginModal", "Account")" src="~/Scripts/Calorie/Account/_loginPartial.js"></script>
+
+
+            @using (Html.BeginForm("ExternalLogin", "Account", new { ReturnUrl = ViewBag.ReturnUrl }))
+            {
+                @Html.AntiForgeryToken()
+                <div class="row">
+                    <div class="col-xs-12">
+                        <button class="button-padding btn full-width facebook-colour facebookBtn" id="Facebook" name="provider" value="Facebook">
+                            <i class="pull-left fa fa-facebook vertical-align-fa-icon"></i>&nbsp;&nbsp;Facebook Login / Sign up
+                        </button>
+                    </div>
+
+                    <div class="col-xs-12">
+                        <button class="button-padding btn full-width linkedInBtn linkedin-colour" id="LinkedIn" name="provider" value="LinkedIn">
+                            <i class="pull-left fa fa-linkedin vertical-align-fa-icon"></i>&nbsp;&nbsp;LinkedIn Login / Sign up
+                        </button>
+                    </div>
+
+                    <div class="col-xs-12">
+                        <button class="button-padding btn full-width btn-default googleLoginBtn" id="Google" name="provider" value="Google">
+                            <img class="pull-left googleLoginImg" src="~/Images/ThirdPartyLogos/google.png" style=""/>&nbsp;&nbsp;Google Login / Sign up                         
+                        </button>
+                    </div>
+
+                    </div>
+
+            }
+
+
+
+            @section Scripts {
+                @Scripts.Render("~/bundles/jqueryval")
+            }

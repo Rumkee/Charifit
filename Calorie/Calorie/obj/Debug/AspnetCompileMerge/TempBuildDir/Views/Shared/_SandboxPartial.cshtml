@@ -1,0 +1,76 @@
+﻿@using System.Configuration
+
+
+@if (ConfigurationManager.AppSettings["ISSANDBOX"].ToLower() == "true")
+{
+    <div class="sandBox alert major-alert alert-danger">
+        Sandbox Site
+        <button id="sandboxInfoClickMore" onclick="sandboxInfoClick(event)" class="btn btn-sm btn-default pull-right" ><span class="glyphicon glyphicon-chevron-down"></span></button>
+        <button id="sandboxInfoClickLess" onclick="sandboxInfoClick(event)"  class="btn btn-sm btn-default pull-right"><span class="glyphicon glyphicon-chevron-up"></span></button>
+
+
+        <div id="sandboxMoreDetails" style="display: none;">
+            <br/>
+            <div class="row">
+                <div class="col-xs-12 col-sm-6 col-md-4">
+
+                    <table class="table settings-table">
+                        <tbody>
+                        <tr>
+                            <td><i class="fa fa-wrench" aria-hidden="true"></i>&nbsp;Build</td>
+                            <td>@ViewContext.Controller.GetType().Assembly.GetName().Version</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="col-xs-12 col-sm-6 col-md-4">
+                    <table class="table settings-table">
+                        <tbody id="sandboxModernizrDetails">
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 ">
+                    
+                    <span class="settings-text">
+                        <i class="fa fa-user" aria-hidden="true"></i>&nbsp;Test Users
+                    </span>
+                    
+                    <table class="table small-table">
+                        <tbody >
+                        <tr>
+                            <th class="small-col">Username</th>
+                            <th class="small-col">Password</th>
+                            <th >Description</th>
+
+                        </tr>
+                        <tr>
+                            <td>@ConfigurationManager.AppSettings["TestUserName_1"]</td>
+                            <td>@ConfigurationManager.AppSettings["TestUserPassword_1"]</td>
+                            <td>@ConfigurationManager.AppSettings["TestUserDescription_1"]</td>
+                        </tr>
+                        <tr>
+                            <td>@ConfigurationManager.AppSettings["TestUserName_2"]</td>
+                            <td>@ConfigurationManager.AppSettings["TestUserPassword_2"]</td>
+                            <td>@ConfigurationManager.AppSettings["TestUserDescription_2"]</td>
+                        </tr>
+                        <tr>
+                            <td>@ConfigurationManager.AppSettings["TestUserName_3"]</td>
+                            <td>@ConfigurationManager.AppSettings["TestUserPassword_3"]</td>
+                            <td>@ConfigurationManager.AppSettings["TestUserDescription_3"]</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+              
+            </div>
+            
+        </div>
+        <script src="~/Scripts/Calorie/Shared/_SandBoxPartial.js"></script>
+
+    </div>
+
+}

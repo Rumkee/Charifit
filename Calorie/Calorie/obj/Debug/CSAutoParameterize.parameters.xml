@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <parameter name="local-Web.config Connection String" description="local Connection String used in web.config by the application to access the database." defaultValue="Data Source=localhost\sqlexpress;Initial Catalog=Calorie5;Persist Security Info=True;User ID=sa;Password=secret#1" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="C:\\Projects\\CalorieOffsetting\\Calorie\\Calorie\\obj\\Debug\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='local']/@connectionString" />
+  </parameter>
+  <parameter name="local_DatabasePublish-Web.config Connection String" description="local_DatabasePublish Connection String used in web.config by the application to access the database." defaultValue="local_DatabasePublish.ConnetionString" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="C:\\Projects\\CalorieOffsetting\\Calorie\\Calorie\\obj\\Debug\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='local_DatabasePublish']/@connectionString" />
+  </parameter>
+</parameters>

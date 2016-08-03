@@ -1,0 +1,20 @@
+﻿
+
+.user-edit #usernameValidationMsg {
+    margin: 0; margin-bottom: 10px; display: none; font-style: italic
+
+}
+
+
+.user-edit  .change-password-button {
+    width: 100%
+}
+
+.user-edit #User_Currency {
+    color: black; border-color: transparent
+}
+
+.user-edit #AlertFeedback {
+    display: none;
+}
+                  

@@ -1,0 +1,31 @@
+﻿@model Calorie.Models.Teams.Team
+
+
+<a href="@Url.Action("Details", "Teams", new {teamname = Model.Name.Replace(" ", "")})">
+
+    <div class="row">
+
+        <div class="col-xs-3 team-tiny-imagediv" data-loaded=false>
+            @{
+                var URL = Url.Action("GetImage", "Image", new {ImageID = Model.ImageID, Thumb = true});
+            }
+            <img class="team-tiny-image"src=@URL/>
+
+        </div>
+
+        <div class="col-xs-9">
+            <div class="row">
+                <div class="col-xs-12 team-tiny-name">
+                    @Model.Name
+                </div>
+                <div class="col-xs-12">
+                    @Html.Raw(Calorie.BusinessLogic.TeamLogic.TeamLogic.getStarsHTMLForTeam(Model))
+                </div>
+            </div>
+        </div>
+    </div>
+</a>
+
+
+
+

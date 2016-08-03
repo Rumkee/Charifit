@@ -1,0 +1,117 @@
+﻿
+@using RazorEngine.Text
+@model Calorie.Models.GenericEmailViewModel
+
+<table style="width: 100%;">
+    <tr>
+        <td>
+            
+            <table id="v1b" style="width: 100% ; max-width: 800px; margin-left: auto;margin-right:auto; border-spacing: 0; font-family: Arial;     border: black;
+    border-style: solid;
+    border-width: 1px;">
+
+                <tr style="background-color: #18bc9c;
+                                                                                                                                       color: white;
+                                                                                                                                       text-align: center;
+                                                                                                                                       float: left;
+                                                                                                                                       width: 100%;
+                                                                                                                                       max-width: 800px;
+                                                                                                                                       height: 75px;">
+
+                    <td>
+                        <a href="@Model.RootURL/Index/Home">
+                            <img src="@Model.RootURL/Images/logoandtag-black.png" class="navbar-brand" style="padding: 5px; float: left; width:178px"/>
+                        </a>
+                    </td>
+                </tr>
+                <tr style="width: 100%; max-width: 800px;">
+                    <td style="padding: 0">
+                        <img style="width: 100%; max-width: 800px; float: left;" src="@Model.RootURL/Images/Photos/RunningWithTagSmall.jpg"/>
+                    </td>
+                </tr>
+                <tr style="float:left;                          
+                            min-height:300px;
+                                width:100%;
+                            max-width:800px;">
+                    
+                    <td style="display: block; text-align: center; padding: 10px 10px 10px 10px;">
+                        <br/>
+                        <div style="font-size: x-large">@Model.Name</div>
+                        <br/>
+                        <br/>
+                        @*@Raw(@Model.HTMLContent)*@
+                        @(new RawString(@Model.HTMLContent))
+                        <br/>
+                        <br />
+
+                        @foreach (var btnVM in @Model.Buttons)
+                        {
+
+                            <table style="width: 300px; background-color: #18bc9c; margin-left: auto; margin-right: auto; text-align: center; line-height: 40px; ">
+                                <tr>
+                                    <td>
+                                        <a href="@btnVM.URL" style="text-decoration: none; ">
+                                            @btnVM.Text
+                                        </a>
+                                    </td>
+                                </tr>
+                            </table>
+                            <br/>
+
+                        }
+
+
+                        
+                        <br />
+                        Regards<br/>
+                        The ChariFit Team.
+                        <br/>
+                       
+                    </td>
+                </tr>
+
+                <tr style="background-color: #18bc9c;
+                            /*float: left;*/
+                            max-width: 800px;    width: 100%
+                    ">
+                    <td style="display: block;    text-align: center;width: 100%;">
+                        <br/>
+                        <a style="font-size: large; text-decoration: none;" href="@Model.RootURL/Account/Edit">Unsubscribe</a>
+
+                        <br/>
+                        <br/>
+                        <a href="@Model.RootURL" style="text-decoration: none;">
+                            <img style="width: 40px; margin: 0 20px 0 20px" src="@Model.RootURL/Images/ThirdPartyLogos/FacebookWhite.png"/>
+                        </a>
+                        <a href="@Model.RootURL" style="text-decoration: none;">
+                            <img style="width: 40px; margin: 0 20px 0 20px" src="@Model.RootURL/Images/ThirdPartyLogos/TwitterWhite.png" />
+                        </a>
+                        <a href="@Model.RootURL" style="text-decoration: none;">
+                            <img style="width: 40px; margin: 0 20px 0 20px" src="@Model.RootURL/Images/ThirdPartyLogos/LinkedInWhite.png"/>
+                        </a>
+                        <br/>
+                        <br/>
+                        <a href="@Model.RootURL" style="text-decoration: none;">ChariFit Ltd</a>
+                        <br/>
+                        <div style="font-size: x-small;">
+                            Registered in England & Wales<br/>
+                            Company Registration Number: 12345XXXXX<br/>
+                            1233 Random Street<br/>
+                            Random Place<br/>
+                            RandomShire<br/>
+                            RR11 1RR<br/>
+                        </div>
+                        <br/>
+                
+                    </td>
+
+                
+
+                </tr>
+
+            </table>
+
+        </td>
+    </tr>
+</table>
+

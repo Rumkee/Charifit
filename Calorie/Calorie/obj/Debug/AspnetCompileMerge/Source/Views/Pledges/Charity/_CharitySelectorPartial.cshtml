@@ -1,0 +1,76 @@
+﻿@model List<Calorie.Models.Charities.Charity>
+
+
+<div id="CharitySelector" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content" >
+            <div class="modal-header">
+                <div class="row">
+
+                    <div class="col-xs-5">
+                        <h4>Select Charity</h4>
+                    </div>
+
+                    @*close box*@
+                    <div class="col-xs-7">
+                        <div class="visible-lg visible-md visible-sm hidden-xs">
+                            <div class="btn-group pull-right">
+
+                                <a class="btn btn-default  btn-sm " onclick="TopCharitiesSelect()"><span class="glyphicon glyphicon-list"></span>&nbsp;Top Charities</a>
+                                <button type="button" class="btn btn-default btn-sm" data-dismiss="modal" aria-label="Close"><span class="glyphicon glyphicon-remove"></span></button>
+                            </div>
+
+                        </div>
+                        <div class="visible-xs hidden-sm hidden-md hidden-lg pull-right">
+                            <button type="button" class="btn btn-default btn-sm" data-dismiss="modal" aria-label="Close"><span class="glyphicon glyphicon-remove"></span></button>
+                        </div>
+                    </div>
+
+                    <div class="visible-xs hidden-sm hidden-md hidden-lg  col-xs-12">
+
+                        <a  class="btn btn-default  btn-sm pull-right top-charities-button-xs" onclick="TopCharitiesSelect()"><span class="glyphicon glyphicon-list"></span>&nbsp;Top Charities</a>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div role="form" class="col-xs-12 ">
+                        <div class="has-feedback open" >
+                            <div class="input-group full-width" >
+                                <input id="CharitiesSearchInput" type="text" class="form-control text-center input-sm" placeholder="Search Charities..."/>
+                                <span id="Charitysearch"><span class="btn btn-sm form-control-feedback glyphicon glyphicon-search" onclick="CharitySearch()"></span></span>
+                            </div>
+                            @Html.Raw(Calorie.BusinessLogic.JustGivingLogic.getPoweredByJustGivingHTML())
+
+                        </div>
+                    </div>
+
+                    @*<div class="col-xs-12 ">
+
+                    </div>*@
+                </div>
+
+            </div>
+
+            <div class="modal-body">
+
+                <div id="TopCharities">
+
+                    @Html.Partial("..\\Charities\\_CharityPartials", new Calorie.Models.Charities.CharityListVM() {ShowSelector = true, Charities = @Model})
+
+                </div>
+                <div id="CharitiesSearchResults">
+
+                </div>
+
+
+            </div>
+
+
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+<script id="CharitySelectorPartialScript"
+        data-search-charities-url="@Url.Action("Search", "Charities")"
+        src="~/Scripts/Calorie/Pledges/_CharitySelectorPartial.js"></script>

@@ -1,0 +1,40 @@
+﻿@model Calorie.Models.ApplicationUser 
+
+@{
+    var pic = "pic" + Guid.NewGuid();
+    var pop = "pop" + Guid.NewGuid();
+    var GetImageURL = Url.Action("GetImage", "Image");
+}
+
+
+                @if (!Model.ProfilePictureID.HasValue)
+                {
+                <img id="@pic" src="~/Images/DefaultUser.jpg" class="pull-left profilepicture-tiny" />
+                }
+                else
+                {
+              
+                var src = GetImageURL + "?ImageID=" + Model.ProfilePictureID.ToString() + "&Thumb=true";
+                <img id="@pic" src="@src" class="pull-left profilepicture-tiny">
+                }
+
+<div id="@pop" class="userPopUp userPopUp-hidden ">
+
+    <div class="panel userpopup-panel">
+        <i class="fa fa-circle-o-notch fa-spin-2x calorie-green-color" style="margin-top: 145px"></i>
+    </div>
+</div>
+
+<script>
+    $(function() {
+        var pic = $("#@pic");
+        var pop = $("#@pop");
+        var thisPartial = new calorie.user.userPartial();
+        thisPartial.init("@Url.Action("GetPopupInfo", "Account")", pic, pop, "@Model.Id");
+        }
+    )
+</script>
+
+
+
+

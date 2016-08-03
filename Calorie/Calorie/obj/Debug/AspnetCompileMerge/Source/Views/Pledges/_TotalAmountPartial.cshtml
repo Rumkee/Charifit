@@ -1,0 +1,12 @@
+﻿@model List<Calorie.Models.Pledges.PledgeContributors>
+   
+    
+@{
+
+    var TotalInBase = @Model.Sum(PC => Calorie.BusinessLogic.CurrencyLogic.ToBase(PC.Currency, PC.Amount));
+    var TotalInBaseStr = TotalInBase.ToString("0.00");
+
+}
+
+<div class="pledge-Total" data-currencycode="GBP" data-currencyamount="@TotalInBaseStr" ></div>
+

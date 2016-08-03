@@ -1,0 +1,22 @@
+﻿@model Calorie.Models.CalorieImage
+
+ 
+    @if (@Model.CalorieImageID == 0)
+    {
+        var name = new string(Model.User.UserName.Take(2).ToArray()).ToUpper();
+      
+            <img src="~/Images/DefaultUser.jpg" data-imageid="@Model.ToString()" class="profilepicture " />
+            <span class="nameoverlay">@name</span>
+     
+    }
+    else
+    {
+        var URL = Url.Action("GetImage", "Image");
+        var src = URL + "?ImageID=" + Model.CalorieImageID.ToString() + "&Thumb=true";
+        <img src="@src" data-imageid="@Model.ToString()" class="profilepicture" />
+    }
+
+
+
+
+

@@ -1,0 +1,73 @@
+﻿@model Calorie.Models.Charities.CharityVM
+
+@{
+
+    var AddStyle = Model.ShowSelector ? "" : "display:none";
+    var RemoveStyle = Model.ShowRemoveSelector ? "" : "display:none";
+
+}
+
+@section localcss
+{
+    <link rel="stylesheet" type="text/css" href="~/CSS/Charities/_CharityPartial.css">
+}
+
+   
+        @if (@Model.ShowSocial)
+        {
+            @:<div class="panel">
+                <div class="panel-heading charityPanelHeading">
+
+
+                    @Html.Partial("..\\Social\\_SocialPartial", Calorie.BusinessLogic.Social.Social.GetSocialVMForCharity(@Model.Charity, Request, Url))
+                    <br/><br/>
+
+                </div>
+             @: <div class="panel-body charityPanelBody">
+       }
+
+
+
+
+                    <a href="@Url.Action("Details", "Charities", new {charityname = Model.Charity.Name.Replace(" ", "")})">
+                        <div class="row">
+
+                            <img class="charityImg col-xs-6" src="@Model.Charity.JustGivingCharityImageURL?template=size120x120&imagetype=charitybrandinglogo">
+
+                            <div class="fulldetails pull-right" style="@AddStyle" id="btnAdd">
+                                <div class="btn btn-default pull-right" onclick="btnCharityClick(event)" data-justgivingcharityid="@Model.Charity.JustGivingCharityID">
+                                    <span class="glyphicon glyphicon-plus"></span>
+                                </div>
+                            </div>
+
+                            <div class="fulldetails pull-right" style="@RemoveStyle" id="btnRemove">
+                                <div class="btn btn-default pull-right" id="btnTeam" onclick="btnRemoveCharityClick(event)" data-justgivingcharityid="@Model.Charity.JustGivingCharityID">
+                                    <span class="glyphicon glyphicon-minus"></span>
+                                </div>
+                            </div>
+
+                            <div class="charityDetailsHeader">
+                                <b>@Model.Charity.Name</b>
+                                <br />
+                                <div class="registeredCharityNumber">Registered charity number:@Model.Charity.JustGivingRegistrationNumber</div><br />
+                            </div>
+
+                            <div class="row">
+                                <p class="charityDescription">@Model.Charity.Description</p>
+                            </div>
+
+                        </div>
+                    </a>
+                    @if (@Model.ShowJustGivingLink)
+                    {
+                        <div class="row">
+                            @Html.Raw(Calorie.BusinessLogic.JustGivingLogic.getPoweredByJustGivingHTML())
+                        </div>
+                    }
+
+@if (@Model.ShowSocial)
+{
+   @:</div>
+ @:</div>
+}
+    

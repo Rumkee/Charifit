@@ -1,0 +1,36 @@
+﻿
+@using Calorie.Models.Pledges
+@model PledgeContributorVM
+
+
+@{
+    
+    var ToPay = Model.PC.Status == PledgeContributors.PledgeContribuionStatus.Pending && Model.IsThisUser;
+    var Paid = Model.PC.Status == PledgeContributors.PledgeContribuionStatus.Completed;
+    var Pending = !Model.IsThisUser && Model.PC.Status == PledgeContributors.PledgeContribuionStatus.Completed;
+
+ 
+}
+
+@if (ToPay)
+            {
+    <a href="@Url.Action("MakePayment", "Pledges", new { ContribID =@Model.PC.ID})"
+       class="btn btn-danger  btn-sm pull-right">
+        <span class="glyphicon glyphicon-arrow-right"></span>&nbsp;Pay
+    </a>
+}
+else if (Paid)
+{
+    <a data-contributionID="@Model.PC.ID"
+       class="btn btn-success btn-sm pull-right disabled">
+        Paid&nbsp;&nbsp;<span class="glyphicon glyphicon-ok"></span>
+    </a>
+}
+else if (Pending)
+{
+    <a data-contributionID="@Model.PC.ID"
+       class="btn btn-warning btn-sm pull-right disabled">
+        Pending Payment
+    </a>
+}
+

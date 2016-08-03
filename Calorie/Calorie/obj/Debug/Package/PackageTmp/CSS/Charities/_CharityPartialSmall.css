@@ -1,0 +1,11 @@
+﻿
+
+   .charity-partial-small .name{
+        font-size:small;margin: 0;
+    }
+
+    .charity-partial-small img{
+       float:none; display: block;margin: auto;max-width:150px
+    }
+
+

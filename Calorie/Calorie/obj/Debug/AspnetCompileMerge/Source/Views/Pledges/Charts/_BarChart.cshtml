@@ -1,0 +1,23 @@
+﻿@model Calorie.Models.Misc.BarChartVM
+
+@{
+    var thisID = Guid.NewGuid().ToString().Replace("-", "");
+}
+
+ 
+<div id ="@thisID" class="chart-@thisID ct-chart"></div>
+     
+<script>   
+    new calorie.charts.barChart('@thisID',
+                                              @Model.Data.IsCurrency.ToString().ToLower(),
+                                              @Html.Raw(@Model.Data.getSeriesRotated90(0, false))
+                                              @if (!string.IsNullOrEmpty(@Model.Data.getLegend(false))){
+                                                    @Html.Raw(","+ Model.Data.getLegend(false) + Environment.NewLine) 
+                                              }
+                                              ,@Model.Animate.ToString().ToLower()                                                    
+                                            );
+    
+</script>
+
+
+

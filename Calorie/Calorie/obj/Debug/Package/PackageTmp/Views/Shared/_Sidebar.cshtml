@@ -1,0 +1,214 @@
+﻿@using Calorie.BusinessLogic
+
+@model Calorie.Models.Misc.SideBarVM
+
+
+@{
+    var TopAmount = 5;
+    
+    var TopTeams = Model.Teams.OrderByDescending(t => t.Members.Sum(m => m.Offsetters.Count())).Take(TopAmount);
+    var TopIndividualPledge = Model.Users.Where(u => !u.IsCompany).OrderByDescending(u => u.Contributions.Sum(c => CurrencyLogic.ToBase(c.Currency, c.Amount))).Take(TopAmount);
+    var TopIndividualOffset = Model.Users.Where(u => !u.IsCompany).OrderByDescending(u => u.Offsetters.Count()).Take(TopAmount);
+    var TopCompanies = Model.Users.Where(u => u.IsCompany).OrderByDescending(u => u.Contributions.Sum(c => CurrencyLogic.ToBase(c.Currency, c.Amount))).Take(TopAmount);
+    var TopCharities = CharityLogic.GetTopCharitiesByAmountRaised();
+    
+    bool IsLogIn = TempData["IsLogInView"]!= null;
+
+}
+
+<br/>
+
+@if(!Request.IsAuthenticated & !IsLogIn)
+{
+    <div class="panel panel-default ">
+       
+        <div class="panel-body">
+            <h5>Log in</h5>
+            <h6><i>Sign in or create an account</i></h6>
+            @Html.Partial("..\\Account\\_LoginPartial", new Calorie.Models.LoginViewModel())
+        </div>
+    </div>
+}
+
+@if (TopCompanies.Any()){
+    <div class="panel panel-default">
+
+        <div class="panel-body no-padding">
+            <div class="sidebar-header" >
+                <h5>Top Companies</h5>
+                <h6><i>Total amount pledged</i></h6>
+            </div>
+
+            <table class="table table-striped">
+
+                @{
+                    foreach (var Company in TopCompanies)
+                    {
+                        <tr>
+                            <td>
+                                @Html.Partial("..\\Account\\_UserPartial", @Company)
+                                @{
+                                    var Amount = @Company.Contributions.Sum(c => CurrencyLogic.ToBase(c.Currency, c.Amount));
+                                }
+                                <span class="pull-right" data-currencycode="GBP" data-currencyamount="@Amount"></span>
+                          
+                            </td>
+                        </tr>
+
+                    }
+
+                }
+            </table>
+
+        </div>
+    </div>
+}
+
+
+
+@if (TopTeams.Any())
+{
+    <div class="panel panel-default ">
+
+        <div class="panel-body no-padding" >
+            <div class="sidebar-header">
+                <h5>Top Teams</h5>
+                <h6><i>Number of activities Logged</i></h6>
+            </div>
+
+            <table class="table table-striped">
+                @{
+                    foreach (var Team in TopTeams)
+                    {
+                        <tr>
+                            <td>
+                                @Html.Partial("..\\Teams\\_TeamTinyPartial", @Team)
+                                <span class="pull-right">@Team.Members.Sum(m => m.Offsetters.Count())</span>
+                            </td>
+                        </tr>
+
+
+                    }
+                }
+            </table>
+        </div>
+    </div>
+}
+
+
+
+
+@if (TopIndividualPledge.Any())
+{
+
+    <div class="panel panel-default">
+
+        <div class="panel-body no-padding" >
+            <div class="sidebar-header">
+                <h5>Top Individuals</h5>
+                <h6><i>Total sponsorship amount</i></h6>
+            </div>
+            <table class="table table-striped">
+                @{
+                    foreach (var User in TopIndividualPledge)
+                    {
+                        <tr>
+                            <td>
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        @Html.Partial("..\\Account\\_UserPartial", @User)
+                                    </div>
+
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12">
+
+                                        @{
+                                            var Amount = @User.Contributions.Sum(c => CurrencyLogic.ToBase(c.Currency, c.Amount));
+                                        }
+                                        <span class="pull-right" data-currencycode="GBP" data-currencyamount="@Amount"></span>
+                                    </div>
+                                </div>
+
+
+                            </td>
+                        </tr>
+                    }
+                }
+            </table>
+        </div>
+    </div>
+    
+}
+
+
+
+@if (TopIndividualOffset.Any())
+{
+
+    <div class="panel panel-default">
+
+        <div class="panel-body no-padding" >
+            <div class="sidebar-header">
+                <h5>Top Individuals</h5>
+                <h6><i>Number of activities logged</i></h6>
+            </div>
+            <table class="table table-striped">
+                @{
+                    foreach (var User in TopIndividualOffset)
+                    {
+                        <tr>
+                            <td>
+                                @Html.Partial("..\\Account\\_UserPartial", @User)
+                                <span class="pull-right">@User.Offsetters.Count()</span>
+                            </td>
+                        </tr>
+
+                    }
+                }
+            </table>
+        </div>
+    </div>
+}
+
+
+
+
+@if (TopCharities.Any())
+{
+
+    <div class="panel panel-default">
+
+        <div class="panel-body no-padding" >
+            <div class="sidebar-header">
+                <h5>Top Charities</h5>
+                <h6><i>Total amount raised</i></h6>
+            </div>
+            <table class="table table-striped">
+                @{
+                    foreach (var Charity in TopCharities)
+                    {
+
+                        var thisLink = Url.Action("Details", "Charities", new {charityname = Charity.Name.Replace(" ", "")});
+                        <tr>
+                            <td>
+
+                                <a href="@thisLink">
+                                    @Html.Partial("..\\Charities\\_CharityTinyPartial", new Calorie.Models.Misc.CharityPartialVM() {CharityName = Charity.Name, ImageUrl = Charity.JustGivingCharityImageURL})
+                                    @{
+                                        var Amount = Charity.Pledges.Sum(p => p.Contributors.Sum(c => CurrencyLogic.ToBase(c.Currency, c.Amount)));
+                                    }
+                                    <span class="pull-right" data-currencycode="GBP" data-currencyamount="@Amount"></span>
+
+                                </a>
+                            </td>
+
+                        </tr>
+
+                    }
+                }
+            </table>
+        </div>
+    </div>
+
+}

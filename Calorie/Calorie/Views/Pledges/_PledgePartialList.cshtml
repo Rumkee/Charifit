@@ -1,0 +1,29 @@
+﻿
+@using System.Web.Mvc.Html
+
+@model Calorie.Models.Pledges.PledgePartialListVM
+
+
+<div class="row">
+    @foreach (var P in @Model.Pledges.Select((p, i) => new { Item = p, Idx = i }))
+    {
+        
+        if (@Model.Animate)
+        {
+            var Ident = Guid.NewGuid().ToString().Replace("-", "");
+
+            <div  id="@Ident" style="display:none">
+                @Html.Partial("..\\Pledges\\_PledgePartial2", P.Item)
+            </div>
+            <script>
+                setTimeout(function() {$('#@Ident').fadeIn();}, @P.Idx * 150);
+            </script>
+        }
+        else
+        {
+            @Html.Partial("..\\Pledges\\_PledgePartial2", P.Item)
+        }
+    }
+
+</div>
+

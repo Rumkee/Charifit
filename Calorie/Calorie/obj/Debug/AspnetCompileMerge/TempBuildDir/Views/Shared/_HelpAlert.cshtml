@@ -1,0 +1,14 @@
+﻿
+@model Calorie.Models.Misc.HelpAlert
+
+<div style="display: none;" data-help-alert-id="@Model.ID" class="alert alert-warning fade in " role="alert">
+    <div class="pull-right">
+        <span class="glyphicon glyphicon-question-sign"></span>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 col-sm-9">
+            <span >@Model.Message</span>
+        </div>
+      
+    </div>
+</div>

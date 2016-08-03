@@ -1,0 +1,19 @@
+﻿@model Calorie.Models.Misc.CharityPartialVM
+
+@Model.CharityName
+<div  class="row charity-tiny-partial" >
+        
+    <div class="col-xs-12">
+        
+        @{
+            var url = Model.ImageUrl + "?template=size120x120&imagetype=charitybrandinglogo";
+        }
+        <img src=@url />
+
+    </div> 
+  
+</div>
+
+
+
+

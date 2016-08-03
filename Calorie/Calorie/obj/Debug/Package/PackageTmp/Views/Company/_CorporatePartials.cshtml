@@ -1,0 +1,21 @@
+﻿
+@model Calorie.Models.Companys.CompanySearchResultsVM
+
+
+@foreach (var T in @Model.CorporateResults)
+{
+     @Html.Partial("..\\Company\\_CorporatePartial", new Calorie.Models.Companys.CompanyPartialVM() { Company = T,ShowFullDetails = true})
+}
+
+
+@if (!Model.CorporateResults.Any())
+{
+    <div class="alert alert-warning fade in " role="alert">
+        <div class="row">
+            <div class="col-xs-12 col-sm-9">
+                <i class="fa fa-frown-o" aria-hidden="true"></i>&nbsp;<span >Oooops!A it looks like we couldn't find anything matching your search.</span>
+            </div>
+        </div>
+    </div>
+     
+}

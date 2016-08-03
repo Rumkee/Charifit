@@ -1,0 +1,72 @@
+﻿@model Calorie.Models.Pledges.CreatePledgeVM
+
+
+<style>
+ 
+
+</style>
+
+
+<div class="panel panel-default create-activities">
+    
+    <div class="panel-body">
+        <h5>Required Activities</h5>
+        <br />
+        <div class="form-horizontal">
+
+            <div class="form-group">
+
+                <div class="col-xs-12">
+                    <h6><i>Amount of Activity Required&nbsp;&nbsp;<span  data-help-button-id="AmountHelp" class="glyphicon glyphicon-question-sign"></span></i></h6>
+                    @Html.Partial("..\\Shared\\_HelpAlert", new Calorie.Models.Misc.HelpAlert() { ID = "AmountHelp", Message = "Select the total amount of activities required in order to fulfill this pledge." })
+                </div>
+
+                <div class="col-xs-12 col-sm-6">
+                    <div class="input-group full-width" >
+
+                        <input type="text"
+                               class="form-control"
+                               name="Pledge.Activity_Amount"
+                               data-val="true"
+                               data-val-number="The amount of activities must be a number."
+                               data-val-range="The amount must be between 1 and 9999"
+                               data-val-range-max="9999"
+                               data-val-range-min="1"
+                               data-val-required="The amount of activities is required."
+                               id="Pledge.Activity_Amount"
+                               value="0.00"
+                              />
+                        <select  name="Pledge.Activity_Units" class="form-control">
+                            @{
+                                foreach (Calorie.Models.Pledges.PledgeActivity.ActivityUnits units in Enum.GetValues(typeof(Calorie.Models.Pledges.PledgeActivity.ActivityUnits)))
+                                {
+                                    <option>@units.ToString()</option>
+
+                                }
+                            }
+                        </select>
+                        <h6><i>@Html.ValidationMessageFor(model => model.Pledge.Activity_Amount, "", new { @class = "text-danger" })</i></h6>
+                    </div>
+                </div>
+               
+                  
+
+            </div>
+
+            <div class="form-group">
+                <div class="col-xs-12 ">
+                    <h6><i>Select the applicable types of activity, or leave blank for all&nbsp;&nbsp;<span  data-help-button-id="ActivityTypes" class="glyphicon glyphicon-question-sign"></span></i></h6>
+                    @Html.Partial("..\\Shared\\_HelpAlert", new Calorie.Models.Misc.HelpAlert() { ID = "ActivityTypes", Message = "user will only be able to add their activity to your pledge if it matches the permitted types you select here. Leave blank to allow any kind of activity." })                    
+                    @Html.Partial("..\\Pledges\\Activities\\_AllActivitiesPartial", "activityClick(event)")
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
+@*hidden inputs will be populated into here*@
+<div id="ActivitiesList"></div>
+

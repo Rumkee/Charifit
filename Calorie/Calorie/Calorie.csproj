@@ -1,0 +1,806 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{7684E536-D435-4C85-8E34-A883AC5D1A8C}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Calorie</RootNamespace>
+    <AssemblyName>Calorie</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>false</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <PrimaryVersionType>AssemblyFileVersionAttribute</PrimaryVersionType>
+    <AssemblyInfoFilePath>Properties\AssemblyInfo.cs</AssemblyInfoFilePath>
+    <UpdateAssemblyVersion>True</UpdateAssemblyVersion>
+    <UpdateAssemblyFileVersion>True</UpdateAssemblyFileVersion>
+    <UpdateAssemblyInfoVersion>True</UpdateAssemblyInfoVersion>
+    <AssemblyVersionSettings>None.None.None.Increment</AssemblyVersionSettings>
+    <AssemblyFileVersionSettings>None.None.None.Increment</AssemblyFileVersionSettings>
+    <AssemblyInfoVersionSettings>None.None.None.Increment</AssemblyInfoVersionSettings>
+    <AssemblyVersion>0.0.1.1126</AssemblyVersion>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Antlr3.Runtime, Version=3.4.1.9004, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Facebook, Version=6.0.10.0, Culture=neutral, PublicKeyToken=58cb4f2111d1e6de, processorArchitecture=MSIL">
+      <HintPath>..\packages\Facebook.7.0.6\lib\net45\Facebook.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Humanizer, Version=1.37.7.0, Culture=neutral, PublicKeyToken=979442b78dfc278e, processorArchitecture=MSIL">
+      <HintPath>..\packages\Humanizer.1.37.7\lib\portable-win+net40+sl50+wp8+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Humanizer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ImageProcessor, Version=2.2.8.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ImageProcessor.2.2.8.0\lib\net45\ImageProcessor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="JustGiving.Api.Data.Sdk, Version=1.6.11.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\justgiving-sdk.1.6.11\lib\Net35\JustGiving.Api.Data.Sdk.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="JustGiving.Api.Sdk, Version=1.6.11.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\justgiving-sdk.1.6.11\lib\Net35\JustGiving.Api.Sdk.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.1\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Owin, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.2.1\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Http, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\justgiving-sdk.1.6.11\lib\Net35\Microsoft.Http.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Http.Extensions, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\justgiving-sdk.1.6.11\lib\Net35\Microsoft.Http.Extensions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.3.0.1\lib\net45\Microsoft.Owin.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.3.0.1\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.3.0.1\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.Cookies.3.0.1\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Facebook, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.Facebook.3.0.1\lib\net45\Microsoft.Owin.Security.Facebook.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Google, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.Google.3.0.1\lib\net45\Microsoft.Owin.Security.Google.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.MicrosoftAccount, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.MicrosoftAccount.3.0.1\lib\net45\Microsoft.Owin.Security.MicrosoftAccount.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OAuth, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.3.0.1\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Twitter, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.Twitter.3.0.1\lib\net45\Microsoft.Owin.Security.Twitter.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Owin.Security.Providers.LinkedIn, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Owin.Security.Providers.LinkedIn.2.3.0\lib\net45\Owin.Security.Providers.LinkedIn.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="RazorEngine, Version=3.7.7.0, Culture=neutral, PublicKeyToken=9ee697374c7e744a, processorArchitecture=MSIL">
+      <HintPath>..\packages\RazorEngine.3.7.7\lib\net45\RazorEngine.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Recaptcha.Web, Version=2.1.0.0, Culture=neutral, PublicKeyToken=171a6ec5fa4b1644, processorArchitecture=MSIL">
+      <HintPath>..\packages\RecaptchaNet.2.1.0\lib\net45\Recaptcha.Web.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="RestSharp, Version=105.2.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RestSharp.105.2.3\lib\net45\RestSharp.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SendGrid, Version=6.3.4.0, Culture=neutral, PublicKeyToken=4f047e93159395ca, processorArchitecture=MSIL">
+      <HintPath>..\packages\Sendgrid.6.3.4\lib\SendGrid.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SendGrid.SmtpApi, Version=1.3.1.0, Culture=neutral, PublicKeyToken=2ae73662c35d80e4, processorArchitecture=MSIL">
+      <HintPath>..\packages\SendGrid.SmtpApi.1.3.1\lib\net40\SendGrid.SmtpApi.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SendGridMail, Version=6.3.4.0, Culture=neutral, PublicKeyToken=4f047e93159395ca, processorArchitecture=MSIL">
+      <HintPath>..\packages\Sendgrid.6.3.4\lib\SendGridMail.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data.SqlServerCe, Version=4.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.SqlServer.Compact.4.0.8876.1\lib\net40\System.Data.SqlServerCe.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Optimization, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.3\lib\net45\System.Web.Razor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="WebGrease, Version=1.5.2.14234, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\IdentityConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="BusinessLogic\CharityLogic.cs" />
+    <Compile Include="BusinessLogic\ChartLogic.cs" />
+    <Compile Include="BusinessLogic\JustGivingLogic.cs" />
+    <Compile Include="BusinessLogic\Messaging\Message.cs" />
+    <Compile Include="BusinessLogic\GenericLogic.cs" />
+    <Compile Include="BusinessLogic\Image.cs" />
+    <Compile Include="BusinessLogic\OffsetsLogic.cs" />
+    <Compile Include="BusinessLogic\PledgesLogic.cs" />
+    <Compile Include="BusinessLogic\Social\OpenGraph.cs" />
+    <Compile Include="BusinessLogic\Social\Social.cs" />
+    <Compile Include="BusinessLogic\TeamLogic.cs" />
+    <Compile Include="BusinessLogic\Trackers\MicrosoftHealth.cs" />
+    <Compile Include="BusinessLogic\Trackers\ITracker.cs" />
+    <Compile Include="BusinessLogic\Trackers\FitBit.cs" />
+    <Compile Include="BusinessLogic\Trackers\RunKeeper.cs" />
+    <Compile Include="BusinessLogic\Trackers\TrackerLogic.cs" />
+    <Compile Include="BusinessLogic\UserLogic.cs" />
+    <Compile Include="BusinessLogic\Utilities.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CharitiesController.cs" />
+    <Compile Include="Controllers\CompanyController.cs" />
+    <Compile Include="Controllers\AlertsController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ImageController.cs" />
+    <Compile Include="Controllers\SocialController.cs" />
+    <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\OffsetsController.cs" />
+    <Compile Include="Controllers\PledgeContributorsController.cs" />
+    <Compile Include="Controllers\PledgesController.cs" />
+    <Compile Include="Controllers\TeamsController.cs" />
+    <Compile Include="Controllers\TrackersController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201607171238504_reset.cs" />
+    <Compile Include="Migrations\201607171238504_reset.Designer.cs">
+      <DependentUpon>201607171238504_reset.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Charity.cs" />
+    <Compile Include="Models\Messages.cs" />
+    <Compile Include="Models\Badge.cs" />
+    <Compile Include="Models\CalorieImage.cs" />
+    <Compile Include="BusinessLogic\Currency.cs" />
+    <Compile Include="Models\CompanyModels.cs" />
+    <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\IndexViewModel.cs" />
+    <Compile Include="Models\Social\Like.cs" />
+    <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Pledges\PledgeBookmark.cs" />
+    <Compile Include="Models\Social\OpenGraphVM.cs" />
+    <Compile Include="Models\Social\Social.cs" />
+    <Compile Include="Models\Trackers\FitbitVMs.cs" />
+    <Compile Include="Models\Trackers\runKeeperVMs.cs" />
+    <Compile Include="Models\UserAlert.cs" />
+    <Compile Include="Models\Offset.cs" />
+    <Compile Include="Models\OtherVMs.cs" />
+    <Compile Include="Models\Pledges\Pledge.cs" />
+    <Compile Include="Models\Pledges\PledgeActivity.cs" />
+    <Compile Include="Models\Pledges\PledgeContributor.cs" />
+    <Compile Include="Models\Pledges\PledgeViewModels.cs" />
+    <Compile Include="Models\Teams\Team.cs" />
+    <Compile Include="Models\Teams\TeamJoinRequests.cs" />
+    <Compile Include="Models\Trackers\Tracker.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="Settings.cs" />
+    <Compile Include="Startup.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="CSS\Account\Edit.css" />
+    <Content Include="CSS\Account\Login.css" />
+    <Content Include="CSS\Account\Register.css" />
+    <Content Include="CSS\Account\RegisterJustGiving.css" />
+    <Content Include="CSS\Account\_LoginPartial.css" />
+    <Content Include="CSS\Account\_UserPartial.css" />
+    <Content Include="CSS\Account\_UserPopUp.css" />
+    <Content Include="CSS\bootstrap.css" />
+    <Content Include="CSS\bootstrap.min.css" />
+    <Content Include="CSS\BootstrapXL.css" />
+    <Content Include="CSS\Charities\_CharityPartial.css" />
+    <Content Include="CSS\Charities\_CharityPartialSmall.css" />
+    <Content Include="CSS\Charities\_CharityTinyPartial.css" />
+    <Content Include="CSS\chartistoverrides.css" />
+    <Content Include="CSS\chartist.min.css" />
+    <Content Include="CSS\Company\_CorporatePartial.css" />
+    <Content Include="CSS\flipclock.css" />
+    <Content Include="CSS\Home\FAQ.css" />
+    <Content Include="CSS\Image\ImageGallery.css" />
+    <Content Include="CSS\magnific-popup.css" />
+    <Content Include="CSS\PledgeContributors\Create.css" />
+    <Content Include="CSS\Pledges\Create.css" />
+    <Content Include="CSS\Pledges\Edit.css" />
+    <Content Include="CSS\Pledges\Pledges.css" />
+    <Content Include="CSS\Pledges\_CharitySelectorPartial.css" />
+    <Content Include="CSS\Pledges\_CreateActivitiesPartial.css" />
+    <Content Include="CSS\Pledges\_PledgePartial2.css" />
+    <Content Include="CSS\Pledges\_SearchPartial.css" />
+    <Content Include="CSS\Shared\_Layout.css" />
+    <Content Include="CSS\Shared\_LayoutTopNavbar.css" />
+    <Content Include="CSS\Social\Social.css" />
+    <Content Include="CSS\Teams\Team.css" />
+    <Content Include="favicons\android-chrome-144x144.png" />
+    <Content Include="favicons\android-chrome-192x192.png" />
+    <Content Include="favicons\android-chrome-36x36.png" />
+    <Content Include="favicons\android-chrome-48x48.png" />
+    <Content Include="favicons\android-chrome-72x72.png" />
+    <Content Include="favicons\android-chrome-96x96.png" />
+    <Content Include="favicons\apple-touch-icon-114x114.png" />
+    <Content Include="favicons\apple-touch-icon-120x120.png" />
+    <Content Include="favicons\apple-touch-icon-144x144.png" />
+    <Content Include="favicons\apple-touch-icon-152x152.png" />
+    <Content Include="favicons\apple-touch-icon-180x180.png" />
+    <Content Include="favicons\apple-touch-icon-57x57.png" />
+    <Content Include="favicons\apple-touch-icon-60x60.png" />
+    <Content Include="favicons\apple-touch-icon-72x72.png" />
+    <Content Include="favicons\apple-touch-icon-76x76.png" />
+    <Content Include="favicons\apple-touch-icon-precomposed.png" />
+    <Content Include="favicons\apple-touch-icon.png" />
+    <Content Include="favicons\browserconfig.xml" />
+    <Content Include="favicons\favicon-16x16.png" />
+    <Content Include="favicons\favicon-194x194.png" />
+    <Content Include="favicons\favicon-32x32.png" />
+    <Content Include="favicons\favicon-96x96.png" />
+    <Content Include="favicons\favicon.ico" />
+    <Content Include="favicons\mstile-144x144.png" />
+    <Content Include="favicons\mstile-150x150.png" />
+    <Content Include="favicons\mstile-310x150.png" />
+    <Content Include="favicons\mstile-310x310.png" />
+    <Content Include="favicons\mstile-70x70.png" />
+    <Content Include="favicons\safari-pinned-tab.svg" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Global.asax" />
+    <Content Include="CSS\Site.css" />
+    <Content Include="Images\Activities\all.png" />
+    <Content Include="Images\Activities\Boxing_MMA.png" />
+    <Content Include="Images\blacklogoandtag.png" />
+    <Content Include="Images\Calorie.png" />
+    <Content Include="Images\Activities\Cycling.png" />
+    <Content Include="Images\Activities\Elliptical.png" />
+    <Content Include="Images\Activities\Pilates.png" />
+    <Content Include="Images\Activities\Walking.png" />
+    <Content Include="Images\Activities\Stairmaster_Stepwell.png" />
+    <Content Include="Images\Activities\Spinning.png" />
+    <Content Include="Images\Activities\Circuit_Training.png" />
+    <Content Include="Images\Activities\Mountain_Biking.png" />
+    <Content Include="Images\Activities\Dance.png" />
+    <Content Include="Images\Activities\Core_strengthening.png" />
+    <Content Include="Images\Activities\Snowboarding.png" />
+    <Content Include="Images\Activities\Rowing.png" />
+    <Content Include="Images\Activities\Skating.png" />
+    <Content Include="Images\Activities\Cross_Country_Skiing.png" />
+    <Content Include="Images\Activities\Strength_Training.png" />
+    <Content Include="Images\Activities\Downhill_Skiing.png" />
+    <Content Include="Images\Activities\Running.png" />
+    <Content Include="Images\Activities\Swimming.png" />
+    <Content Include="Images\Activities\Wheelchair.png" />
+    <Content Include="Images\Activities\Hiking.png" />
+    <Content Include="Images\Activities\Yoga.png" />
+    <Content Include="Images\Activities\Meditation.png" />
+    <Content Include="Images\Badges\1.png" />
+    <Content Include="Images\Badges\10.png" />
+    <Content Include="Images\Badges\2.png" />
+    <Content Include="Images\Badges\3.png" />
+    <Content Include="Images\Badges\4.png" />
+    <Content Include="Images\Badges\5.png" />
+    <Content Include="Images\Badges\6.png" />
+    <Content Include="Images\Badges\7.png" />
+    <Content Include="Images\Badges\8.png" />
+    <Content Include="Images\Badges\9.png" />
+    <Content Include="Images\Badges\career-management-180x180.png" />
+    <Content Include="Images\Badges\chain-of-command-180x180.png" />
+    <Content Include="Images\Badges\change-management-180x180.png" />
+    <Content Include="Images\Badges\coaching-180x180.png" />
+    <Content Include="Images\Badges\communication-skills-180x180.png" />
+    <Content Include="Images\Badges\complaints-180x180.png" />
+    <Content Include="Images\Badges\compliance-180x180.png" />
+    <Content Include="Images\Badges\corporate-induction-180x180.png" />
+    <Content Include="Images\Badges\corporate-social-security-180x180.png" />
+    <Content Include="Images\Badges\creative-thinking-180x180.png" />
+    <Content Include="Images\Badges\crisis-management-180x180.png" />
+    <Content Include="Images\Badges\customer-engagement-180x180.png" />
+    <Content Include="Images\Badges\customer-service-180x180.png" />
+    <Content Include="Images\Badges\decision-making-180x180.png" />
+    <Content Include="Images\Badges\delegationg-180x180.png" />
+    <Content Include="Images\Badges\deliveries-180x180.png" />
+    <Content Include="Images\Badges\developing-employees-180x180.png" />
+    <Content Include="Images\Badges\discrimination-harassment-and-bullying-180x180.png" />
+    <Content Include="Images\Badges\dismissing-employees-180x180.png" />
+    <Content Include="Images\Badges\document-management-180x180.png" />
+    <Content Include="Images\Badges\email-communication-180x180.png" />
+    <Content Include="Images\Badges\environmental-sustainability-180x180.png" />
+    <Content Include="Images\Badges\feedback-180x180.png" />
+    <Content Include="Images\Badges\finance-180x180.png" />
+    <Content Include="Images\Badges\fire-safety-180x180.png" />
+    <Content Include="Images\Badges\first-aid-180x180.png" />
+    <Content Include="Images\Badges\food-safety-180x180.png" />
+    <Content Include="Images\Badges\forklift-180x180.png" />
+    <Content Include="Images\Badges\full-star-180x180.png" />
+    <Content Include="Images\Badges\goal-setting-180x180.png" />
+    <Content Include="Images\Badges\gold-cup-180x180.png" />
+    <Content Include="Images\Badges\hiring-180x180.png" />
+    <Content Include="Images\Badges\hollow-star-180x180.png" />
+    <Content Include="Images\Badges\incident-reporting-180x180.png" />
+    <Content Include="Images\Badges\innovation-180x180.png" />
+    <Content Include="Images\Badges\inspections-180x180.png" />
+    <Content Include="Images\Badges\interviews-180x180.png" />
+    <Content Include="Images\Badges\iso-180x180.png" />
+    <Content Include="Images\Badges\it-security-180x180.png" />
+    <Content Include="Images\Badges\leadership-180x180.png" />
+    <Content Include="Images\Badges\learnbrite-180x180.png" />
+    <Content Include="Images\Badges\legal-180x180.png" />
+    <Content Include="Images\Badges\License.txt" />
+    <Content Include="Images\Badges\logistics-180x180.png" />
+    <Content Include="Images\Badges\management-180x180.png" />
+    <Content Include="Images\Badges\manual-handling-180x180.png" />
+    <Content Include="Images\Badges\marketing-180x180.png" />
+    <Content Include="Images\Badges\meeting-management-180x180.png" />
+    <Content Include="Images\Badges\moodle-180x180.png" />
+    <Content Include="Images\Badges\motivation-180x180.png" />
+    <Content Include="Images\Badges\negotiation-180x180.png" />
+    <Content Include="Images\Badges\online-advertising-180x180.png" />
+    <Content Include="Images\Badges\online-marketing-180x180.png" />
+    <Content Include="Images\Badges\open-badges-180x180.png" />
+    <Content Include="Images\Badges\operator-180x180.png" />
+    <Content Include="Images\Badges\orientation-180x180.png" />
+    <Content Include="Images\Badges\payroll-180x180.png" />
+    <Content Include="Images\Badges\performance-180x180.png" />
+    <Content Include="Images\Badges\point-of-sale-180x180.png" />
+    <Content Include="Images\Badges\pr-180x180.png" />
+    <Content Include="Images\Badges\presentation-skills-180x180.png" />
+    <Content Include="Images\Badges\process-improvement-180x180.png" />
+    <Content Include="Images\Badges\product-knowledge-180x180.png" />
+    <Content Include="Images\Badges\project-mangement-180x180.png" />
+    <Content Include="Images\Badges\purchasing-180x180.png" />
+    <Content Include="Images\Badges\responsible-conduct-of-game-180x180.png" />
+    <Content Include="Images\Badges\responsible-serve-of-alcohol-180x180.png" />
+    <Content Include="Images\Badges\retaining-employees-180x180.png" />
+    <Content Include="Images\Badges\risk-management-180x180.png" />
+    <Content Include="Images\Badges\safety-180x180.png" />
+    <Content Include="Images\Badges\scrom-180x180.png" />
+    <Content Include="Images\Badges\selling-to-customers-180x180.png" />
+    <Content Include="Images\Badges\silver-cup-180x180.png" />
+    <Content Include="Images\Badges\six-sigma-180x180.png" />
+    <Content Include="Images\Badges\social-media-180x180.png" />
+    <Content Include="Images\Badges\stocktake-180x180.png" />
+    <Content Include="Images\Badges\store-management-180x180.png" />
+    <Content Include="Images\Badges\strategy-180x180.png" />
+    <Content Include="Images\Badges\stress-management-180x180.png" />
+    <Content Include="Images\Badges\surviving-crime-180x180.png" />
+    <Content Include="Images\Badges\team-work-180x180.png" />
+    <Content Include="Images\Badges\telephone-skills-180x180.png" />
+    <Content Include="Images\Badges\theft-prevention-180x180.png" />
+    <Content Include="Images\Badges\time-management-180x180.png" />
+    <Content Include="Images\Badges\tin-can-api-180x180.png" />
+    <Content Include="Images\Badges\upselling-180x180.png" />
+    <Content Include="Images\Badges\very-hollow-star-180x180.png" />
+    <Content Include="Images\Badges\vision-180x180.png" />
+    <Content Include="Images\Badges\visual-merchandising-180x180.png" />
+    <Content Include="Images\Badges\work-place-hazards-180x180.png" />
+    <Content Include="Images\Badges\work-place-security-180x180.png" />
+    <Content Include="Images\camera.jpg" />
+    <Content Include="Images\DefaultUser.jpg" />
+    <Content Include="Images\Flags\ae.png" />
+    <Content Include="Images\Flags\au.png" />
+    <Content Include="Images\Flags\ca.png" />
+    <Content Include="Images\Flags\de.png" />
+    <Content Include="Images\Flags\gb.png" />
+    <Content Include="Images\Flags\hk.png" />
+    <Content Include="Images\Flags\sg.png" />
+    <Content Include="Images\Flags\us.png" />
+    <Content Include="Images\logo-opensans.svg" />
+    <Content Include="Images\logo.png" />
+    <Content Include="Images\logoandtag-black.png" />
+    <Content Include="Images\logoandtag-white.png" />
+    <Content Include="Images\logoandtag.png" />
+    <Content Include="Images\Photos\FB_SiteImage1.jpg" />
+    <Content Include="Images\Photos\photo1.jpg" />
+    <Content Include="Images\Photos\photo2.jpg" />
+    <Content Include="Images\Photos\photo3.jpg" />
+    <Content Include="Images\Photos\photo4.jpg" />
+    <Content Include="Images\Photos\photo5.jpg" />
+    <Content Include="Images\Photos\photo6.jpg" />
+    <Content Include="Images\Photos\RunningWithTagLarge.jpg" />
+    <Content Include="Images\Photos\RunningWithTagSmall.jpg" />
+    <Content Include="Images\ThirdPartyLogos\FacebookWhite.png" />
+    <Content Include="Images\ThirdPartyLogos\fitbit.svg" />
+    <Content Include="Images\ThirdPartyLogos\google.png" />
+    <Content Include="Images\ThirdPartyLogos\LinkedInWhite.png" />
+    <Content Include="Images\ThirdPartyLogos\MSHealth.png" />
+    <Content Include="Images\ThirdPartyLogos\runKeeper.png" />
+    <Content Include="Images\ThirdPartyLogos\TwitterWhite.png" />
+    <Content Include="Images\un.png" />
+    <Content Include="Scripts\Calorie\Account\Edit.js" />
+    <Content Include="Scripts\Calorie\Account\register.js" />
+    <Content Include="Scripts\Calorie\Account\registerFurtherDetails.js" />
+    <Content Include="Scripts\Calorie\Account\_loginPartial.js" />
+    <Content Include="Scripts\Calorie\Charities\Index.js" />
+    <Content Include="Scripts\Calorie\Chart\miniDonutChart.js" />
+    <Content Include="Scripts\Calorie\Chart\lineChart.js" />
+    <Content Include="Scripts\Calorie\Chart\donutChart.js" />
+    <Content Include="Scripts\Calorie\Chart\barChart.js" />
+    <Content Include="Scripts\Calorie\Chart\charts.js" />
+    <Content Include="Scripts\Calorie\Company\Index.js" />
+    <Content Include="Scripts\Calorie\Home\FAQ.js" />
+    <Content Include="CSS\Home\Index.css" />
+    <Content Include="Scripts\Calorie\Image\_ImageUpload.js" />
+    <Content Include="Scripts\Calorie\Offsets\Create.js" />
+    <Content Include="CSS\Pledges\Details.css" />
+    <Content Include="Scripts\Calorie\Pledges\Details.js" />
+    <Content Include="Scripts\Calorie\Pledges\Edit.js" />
+    <Content Include="Scripts\Calorie\Pledges\Index.js" />
+    <Content Include="Scripts\Calorie\Pledges\_BookmarkPartal.js" />
+    <Content Include="Scripts\Calorie\Pledges\_CharitySelectorPartial.js" />
+    <Content Include="Scripts\Calorie\Pledges\_SearchPartial.js" />
+    <Content Include="Scripts\Calorie\Shared\cookieWarning.js" />
+    <Content Include="Scripts\Calorie\Shared\_SandBoxPartial.js" />
+    <Content Include="Scripts\Calorie\Shared\_FilterPartial.js" />
+    <Content Include="Scripts\Calorie\Shared\textEditor.js" />
+    <Content Include="Scripts\Calorie\Shared\_Layout.js" />
+    <Content Include="Scripts\Calorie\Teams\CreateTeam.js" />
+    <Content Include="Scripts\Calorie\Teams\Details.js" />
+    <Content Include="Scripts\Calorie\Teams\Edit.js" />
+    <Content Include="Scripts\Calorie\Teams\Index.js" />
+    <Content Include="Scripts\Calorie\Teams\_TeamSelectorPartial.js" />
+    <Content Include="Scripts\External\accounting.min.js" />
+    <Content Include="Scripts\External\bigtext.js" />
+    <Content Include="Scripts\External\bootstrap.js" />
+    <Content Include="Scripts\External\bootstrap.min.js" />
+    <Content Include="Scripts\Calorie\alerts.js" />
+    <Content Include="Scripts\Calorie\calorie.js" />
+    <Content Include="Scripts\Calorie\Account\account.js" />
+    <Content Include="Scripts\Calorie\Shared\browserCheck.js" />
+    <Content Include="Scripts\Calorie\user.js" />
+    <Content Include="Scripts\Calorie\currency.js" />
+    <Content Include="Scripts\Calorie\Image\imageGallery.js" />
+    <Content Include="Scripts\Calorie\Pledges\createPledge.js" />
+    <Content Include="Scripts\Calorie\helpers.js" />
+    <Content Include="Scripts\Calorie\images.js" />
+    <Content Include="Scripts\Calorie\Trackers\runKeeper.js" />
+    <Content Include="Scripts\Calorie\Trackers\fitbit.js" />
+    <Content Include="Scripts\Calorie\Trackers\runKeeperSelectorPartial.js" />
+    <Content Include="Scripts\External\chartist-plugin-legend.js" />
+    <Content Include="Scripts\External\chartist.min.js" />
+    <Content Include="Scripts\External\flipclock.min.js" />
+    <Content Include="Scripts\External\handlebars.js" />
+    <Content Include="Scripts\External\modernizr-custom.js" />
+    <Content Include="Views\Offsets\Fitbit\_FitbitActivityPartialSummaryList.cshtml" />
+    <Content Include="Views\Offsets\Fitbit\_FitbitActivityPartialSummary.cshtml" />
+    <Content Include="fonts\Charifit-Light.ttf" />
+    <Content Include="Views\Home\Top.cshtml" />
+    <Content Include="Views\Shared\_SandboxPartial.cshtml" />
+    <Content Include="favicons\manifest.json" />
+    <Content Include="Views\Pledges\Index\_SearchPartial.cshtml" />
+    <Content Include="appSettings.config" />
+    <Content Include="appSettings.Debug.config">
+      <DependentUpon>appSettings.config</DependentUpon>
+    </Content>
+    <Content Include="appSettings.Release.config">
+      <DependentUpon>appSettings.config</DependentUpon>
+    </Content>
+    <Content Include="Views\Shared\_FilterPartial.cshtml" />
+    <Content Include="Views\Company\_CorporatePartials.cshtml" />
+    <Content Include="Views\Home\FAQ.cshtml" />
+    <Content Include="Views\Home\_FAQPartial.cshtml" />
+    <None Include="Scripts\External\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\External\jquery-1.10.2.js" />
+    <Content Include="Scripts\External\jquery-1.10.2.min.js" />
+    <Content Include="Scripts\External\jquery.easing.1.3.js" />
+    <Content Include="Scripts\External\jquery.magnific-popup.min.js" />
+    <Content Include="Scripts\External\jquery.parallax-scroll.js" />
+    <None Include="Scripts\External\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\External\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\External\jquery.unobtrusive-ajax.min.js" />
+    <Content Include="Scripts\External\jquery.validate.js" />
+    <Content Include="Scripts\External\jquery.validate.min.js" />
+    <Content Include="Scripts\External\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\External\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\External\js.cookie.js" />
+    <Content Include="Scripts\Calorie\Social\social.js" />
+    <Content Include="Scripts\Calorie\location.js" />
+    <Content Include="Scripts\Calorie\Teams\teams.js" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="Scripts\External\parallax.min.js" />
+    <Content Include="Scripts\External\respond.js" />
+    <Content Include="Scripts\External\respond.min.js" />
+    <Content Include="Views\Home\Cookies.cshtml" />
+    <Content Include="Views\Account\RegisterJustGiving.cshtml" />
+    <Content Include="packages.config" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <None Include="Properties\PublishProfiles\ChariFit-Sandbox.pubxml" />
+    <Content Include="Views\Home\TandC.cshtml" />
+    <Content Include="Views\Image\_ImageUpload.cshtml" />
+    <Content Include="Views\Image\_ProfilePicture.cshtml" />
+    <Content Include="Views\Pledges\Create.cshtml" />
+    <Content Include="Views\Pledges\Details.cshtml" />
+    <Content Include="Views\Pledges\Edit.cshtml" />
+    <Content Include="Views\Pledges\Index.cshtml" />
+    <None Include="Properties\Settings.settings">
+      <Generator>PublicSettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
+    <Content Include="Views\Image\_Image.cshtml" />
+    <Content Include="Views\Charities\_CharityPartial.cshtml" />
+    <Content Include="Views\Offsets\Create.cshtml" />
+    <Content Include="Views\Offsets\_OffsetPartial.cshtml" />
+    <Content Include="Views\Account\_UserPartial.cshtml" />
+    <Content Include="Views\Social\_SocialPartial.cshtml" />
+    <Content Include="Views\Pledges\_PledgePartial.cshtml" />
+    <Content Include="Views\Teams\Create.cshtml" />
+    <Content Include="Views\Teams\Details.cshtml" />
+    <Content Include="Views\Teams\Edit.cshtml" />
+    <Content Include="Views\Teams\Index.cshtml" />
+    <Content Include="Views\Teams\_TeamPartial.cshtml" />
+    <Content Include="Views\Shared\_Sidebar.cshtml" />
+    <Content Include="Views\Teams\_TeamSelectorPartial.cshtml" />
+    <Content Include="Views\PledgeContributors\Create.cshtml" />
+    <Content Include="Views\PledgeContributors\_PledgeAmountPartial.cshtml" />
+    <Content Include="Views\Pledges\_TotalAmountPartial.cshtml" />
+    <Content Include="Views\Image\_ImageGallery.cshtml" />
+    <Content Include="Views\Account\Templates\_UserPopUpTemplate.cshtml" />
+    <Content Include="Views\Pledges\Charity\_CharitySelectorPartial.cshtml" />
+    <Content Include="Views\Shared\_AlertTemplate.cshtml" />
+    <Content Include="Views\Pledges\Activities\_CreateActivitiesPartial.cshtml" />
+    <Content Include="Views\Offsets\runKeeper\_RunKeeperSelectorPartial.cshtml" />
+    <Content Include="Views\Teams\_TeamTinyPartial.cshtml" />
+    <Content Include="Views\Charities\_CharityTinyPartial.cshtml" />
+    <Content Include="Views\Company\Details.cshtml" />
+    <Content Include="Views\Account\_LoginPartial.cshtml" />
+    <Content Include="Views\Company\Index.cshtml" />
+    <Content Include="Views\Trackers\_AddTrackerPartial.cshtml" />
+    <Content Include="Views\Offsets\Fitbit\_FitbitSelectorPartial.cshtml" />
+    <Content Include="Views\Offsets\Fitbit\Templates\_FitbitActivityTemplate.cshtml" />
+    <Content Include="Views\Home\BrowserNotSupported.cshtml" />
+    <Content Include="Views\Pledges\_PledgeSearchResultsPartial.cshtml" />
+    <Content Include="Views\Pledges\Activities\_AllActivitiesPartial.cshtml" />
+    <Content Include="Views\Pledges\Charts\_DonutChart.cshtml" />
+    <Content Include="Views\Shared\_HelpAlert.cshtml" />
+    <Content Include="Views\Pledges\Charts\_MiniDonutChart.cshtml" />
+    <Content Include="Views\Shared\_Checkbox.cshtml" />
+    <Content Include="Views\Charities\Index.cshtml" />
+    <Content Include="Views\Charities\Details.cshtml" />
+    <Content Include="Views\Emails\_GenericEmail.cshtml" />
+    <Content Include="Views\Teams\_TeamPartials.cshtml" />
+    <Content Include="Views\Pledges\_BookmarkPartial.cshtml" />
+    <Content Include="Views\Pledges\Charts\_LineChart.cshtml" />
+    <Content Include="Views\Account\RegisterFurtherDetails.cshtml" />
+    <Content Include="Views\Teams\_TeamStatsOverviewPartial.cshtml" />
+    <Content Include="Views\Pledges\_PledgePartialList.cshtml" />
+    <Content Include="Views\Shared\_ChartPartial.cshtml" />
+    <Content Include="Views\Image\_CompanyPicture.cshtml" />
+    <Content Include="Views\Company\_CorporatePartial.cshtml" />
+    <Content Include="Views\Charities\_CharityPartials.cshtml" />
+    <Content Include="Views\Charities\_CharityPartialSmall.cshtml" />
+    <Content Include="Views\Offsets\runKeeper\_RunKeeperActivityPartial.cshtml" />
+    <Content Include="Views\Offsets\runKeeper\_RunKeeperActivityPartialList.cshtml" />
+    <Content Include="Views\Offsets\runKeeper\_RunKeeperActivityPartialSummary.cshtml" />
+    <Content Include="Views\Offsets\runKeeper\_RunKeeperActivityPartialSummaryList.cshtml" />
+    <Content Include="Views\Shared\_CurrencySelector.cshtml" />
+    <Content Include="Views\Account\_TinyUserPartial.cshtml" />
+    <Content Include="Scripts\_references.js" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Home\About.cshtml" />
+    <Content Include="Views\Home\Contact.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Account\ConfirmEmail.cshtml" />
+    <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
+    <Content Include="Views\Account\ForgotPassword.cshtml" />
+    <Content Include="Views\Account\ForgotPasswordConfirmation.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Account\Register.cshtml" />
+    <Content Include="Views\Account\ResetPassword.cshtml" />
+    <Content Include="Views\Account\ResetPasswordConfirmation.cshtml" />
+    <Content Include="Views\Manage\ChangePassword.cshtml" />
+    <Content Include="Views\Account\Edit.cshtml" />
+    <Content Include="Views\Shared\Lockout.cshtml" />
+    <Content Include="Views\Shared\_SharedLoginPartial.cshtml" />
+    <Content Include="Scripts\External\jquery-1.10.2.min.map" />
+    <Content Include="Views\Pledges\_PledgePartial2.cshtml" />
+    <Content Include="Views\Shared\_LayoutTopNavbar.cshtml" />
+    <Content Include="Views\Pledges\Charts\_BarChart.cshtml" />
+    <Content Include="Views\Pledges\_PayUpPartial.cshtml" />
+    <Content Include="Views\Home\Blog.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="CSS\Offsets\" />
+    <Folder Include="CSS\Trackers\" />
+    <Folder Include="Scripts\Calorie\PledgeContributors\" />
+    <Folder Include="Views\Offsets\Templates\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201607171238504_reset.resx">
+      <DependentUpon>201607171238504_reset.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'n|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <SaveServerSettingsInUserFile>True</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

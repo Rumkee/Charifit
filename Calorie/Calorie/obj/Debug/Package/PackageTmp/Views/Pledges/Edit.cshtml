@@ -1,0 +1,124 @@
+﻿@model Calorie.Models.Pledges.EditPledgeVM
+
+@section localcss{
+    <link rel="stylesheet" href="~/CSS/Pledges/Edit.css">
+    <link rel="stylesheet" href="~/CSS/Image/ImageGallery.css">
+}
+
+<div>
+    Show Pledge Details
+    @*@Html.Partial("..\\Pledges\\_PledgePartial2", Model.Pledge)*@
+</div>
+<br/>
+   
+        @using (Html.BeginForm(null, null, FormMethod.Post, new {id = "EditPledgeForm"}))
+        {
+            @Html.AntiForgeryToken()
+
+            @Html.ValidationSummary(true, "", new {@class = "text-danger"})
+
+            //story
+            <div class="panel">
+                <div class="panel-body">
+
+                    <h5>Story</h5>
+                    <h6><i>Tell us something about the story behind why you're making the pledge.</i></h6>
+
+                    <div id="StoryTextEditor">@Html.Raw(Model.Pledge.Story)</div>
+                    @Html.ValidationMessageFor(model => model.Story, "", new {@class = "text-danger"})
+                    @Html.HiddenFor(model => model.Story)
+
+                    <br/>
+                    <br/>
+                    <script>
+                        new calorie.textEditor('StoryTextEditor', 'Story', 'EditPledgeForm');
+                    </script>
+                </div>
+            </div>
+
+
+            //image gallery
+            @Html.Partial("..\\Image\\_ImageGallery", new Calorie.Models.CalorieImageGalleryVM() {Images = Model.Pledge.Gallery, Editable = true})
+
+
+            if (Model.Pledge.Activity_Types.Any())
+            {
+                <div class="panel">
+                    <div class="panel-body">
+
+                        @Html.HiddenFor(m => Model.PledgeID, new {@class = "form-control"})
+
+                        <h5>Applicable Activities&nbsp;&nbsp;<span  data-help-button-id="ActivityTypes" class="glyphicon glyphicon-question-sign"></span></h5>
+                        <h6><i>Activities can only be added to, not removed.</i></h6>
+                        @Html.Partial("..\\Shared\\_HelpAlert", new Calorie.Models.Misc.HelpAlert() {ID = "ActivityTypes", Message = "user will only be able to add their activity to your pledge if it matches the permitted types you select here. Leave blank to allow any kind of activity."})
+                        @Html.Partial("..\\Pledges\\Activities\\_AllActivitiesPartial", "ActivityClick(event)")
+                        <div id="ActivitiesList"></div>
+
+                        @*activities script*@
+                        <script>
+                            $(function() {
+                                //prepopulate existing preferred activities
+                                @foreach (var pa in Model.Pledge.Activity_Types)
+                                  {
+                                      @:  setActivity($('*[data-activityname="@pa.Activity"]'), true);
+                                    @: $('*[data-activityname="@pa.Activity"]').addClass("disabled");
+                                }
+
+                            });                          
+                        </script>
+
+                    </div>
+                </div>
+            } //if we can edit activities.
+
+
+            //Expiry
+            <div class="panel panel-default">
+
+                <div class="panel-body">
+                    <h5>Expiry</h5>
+                    <div class="form-horizontal">
+
+                        <div class="form-group ">
+
+                            <div class="col-xs-12">
+                                <h6><i>Date on which this pledge becomes void if the activities target is not met. Expires at midnight coordinated universal time</i></h6>
+                            </div>
+                            <div class="col-xs-12 col-sm-6">
+                                @{
+                                    var thisExpiry = Model.Pledge.ExpiryDate.ToString("yyyy-MM-dd");
+                                    var thisExpiryLong = Model.Pledge.ExpiryDate.ToString("dd MMMM yyyy");
+                                }
+                                <Script>
+                                        var thisExpiry = '@thisExpiry'
+                                </Script>
+                                <input onchange="ExpiryDateChanged(event)" class="full-width text-box single-line user-success " data-val="true" data-val-date="The ExpiryDate must be a date." data-val-required="The Expiry date is required." id="ExpiryDate" name="ExpiryDate" type="date" value="@thisExpiry">
+                                <h6><i>@Html.ValidationMessageFor(model => model.Pledge.ExpiryDate, "", new {@class = "text-danger"})</i></h6>
+                                <h6 class="text-danger date-validation" id="expiryDateEarlyValidationMsg"><i>Date must not be earlier than @thisExpiryLong</i></h6>
+                            </div>
+                            <script>
+                             
+                            </script>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+
+            //Save button
+            <div class="form-group">
+                <div class="col-xs-12">
+                    <input type="submit" id="saveBtn" class="btn btn-default pull-right" value="Save"/>
+                </div>
+            </div>
+
+        }@*form*@
+
+
+<script src="~/Scripts/Calorie/Pledges/Edit.js"></script>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

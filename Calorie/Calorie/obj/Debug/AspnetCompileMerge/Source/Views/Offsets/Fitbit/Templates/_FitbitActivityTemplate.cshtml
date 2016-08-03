@@ -1,0 +1,111 @@
+﻿
+<script id="FitbitActivity-template" type="text/x-handlebars-template">
+
+    <div class="panel panel-default bordered">
+        <div class="panel panel-heading " style="padding:3px;margin-bottom: 0px;">
+
+            <div class="row">
+                {{#if includeUserPartial}}
+                <div class="col-xs-2">
+                    <div id="UserPartial"></div>
+                </div>
+                <div class="col-xs-7">
+                    {{else}}
+                    <div class="col-xs-9">
+                        {{/if}}
+
+                        <div class="visible-xs hidden-sm hidden-md hidden-lg">
+                            <h5 style="padding-left:10px">{{type}} </h5>
+                            <h5 style="padding-left:10px">{{start_time}}</h5>
+                        </div>
+                        <div class="hidden-xs visible-sm visible-md visible-lg">
+                            <h5 style="padding-left:10px">{{type}}&nbsp;&nbsp;&nbsp;&nbsp;{{start_time}}</h5>
+
+                        </div>
+
+
+
+                    </div>
+
+                    <div id="addBtnGroup" class="col-xs-3">
+                        <div class="btn-group pull-right" style="padding: 05px 15px 05px 0">
+                            <button onclick="RunKeeperActivityClick(event)" class="btn btn-sm btn-default pull-right" data-jsonblob="{{jsonblob}}" data-activityURL="{{uri}}"><span class="glyphicon glyphicon-plus-sign"></span></button>
+                        </div>
+                    </div>
+                </div>
+        </div>
+
+        <div class="panel-body" >
+            <div class="row" style="margin-bottom: 10px;">
+
+                <div class="col-xs-4">
+                    <span class="glyphicon glyphicon-road"></span>&nbsp;&nbsp;{{total_distanceFormatted}} Meters
+                </div>
+
+                <div class="col-xs-4">
+                    <span class="glyphicon glyphicon-time"></span>&nbsp;&nbsp;{{duration_minsFormatted}} Minutes
+                </div>
+
+                <div class="col-xs-4">
+                    <span class="glyphicon glyphicon-fire"></span>&nbsp;&nbsp;{{total_calories}} Calories
+                </div>
+
+
+            </div>
+            <div class="row" style="margin-bottom: 10px;">
+                <div class="col-xs-12">
+                    <div id="{{mapId}}" style="height:200px; position:relative"></div>
+                </div>
+            </div>
+           
+          {{#if images}}
+            <div class="row" style="margin-bottom: 10px;">
+                <div class="col-xs-12">
+                    Photos
+                </div>
+                <div class="col-xs-12" id="{{galleryID}}">
+                    {{#each images}}
+                    <a style='padding:5px' href={{uri}} data-imageid={{ID}}>
+                        <img src={{thumbnail_uri}} alt="" />
+                    </a>
+                    {{/each}}
+                </div>
+            </div>
+          {{/if}}
+                        
+          {{#if notes}}
+                <div class="row" style="margin-bottom: 10px;">
+                <div class="col-xs-12">
+                    Notes
+                </div>
+                <div class="col-xs-12">
+                    {{notes}}
+                </div>
+            </div>
+          {{/if}}
+            
+
+
+        </div>
+    </div>
+
+
+ </script>
+
+<script id="FitbitActivitySummary-template" type="text/x-handlebars-template">
+
+    <div class="panel bordered">
+        <div class="row">
+
+            <div class="col-xs-3">{{startDate}}</div>
+            <div class="col-xs-2">{{activityParentName}}</div>
+            <div class="col-xs-2"><span class="glyphicon glyphicon-road"></span>&nbsp;{{distance_formatted}} Km</div>
+            <div class="col-xs-2"><span class="glyphicon glyphicon-time"></span>&nbsp;{{duration_mins_formatted}} Minutes</div>
+            <div class="col-xs-2"><span class="glyphicon glyphicon-fire"></span>&nbsp;{{calories}} Calories</div>
+            <div class="col-xs-1"><button onclick="FitbitActivityClick(event)" class="btn btn-default pull-right"  data-jsonblob="{{jsonblob}}" data-activityURL="{{uri}}"><span class="glyphicon glyphicon-plus-sign"></span></button></div>
+
+        </div>
+    </div>
+
+</script>
+

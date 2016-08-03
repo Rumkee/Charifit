@@ -1,0 +1,16 @@
+﻿
+
+
+  #CharitySelector .modal-content{
+        min-height: 500px;
+    }
+
+    #CharitySelector #Charitysearch .glyphicon-search {
+        pointer-events: auto;
+    }
+
+    .top-charities-button-xs {
+        margin-bottom: 7px
+    }
+
+

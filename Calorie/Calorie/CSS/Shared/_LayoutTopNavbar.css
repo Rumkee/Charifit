@@ -1,0 +1,72 @@
+﻿  .header-logo-title {
+        line-height: 40px;
+        font-size: 40px;
+        font-weight: 300;
+        margin-left: -10px;        
+        letter-spacing: -1px;
+    }
+
+    .header-logo-subtitle {
+        line-height: 0;
+        font-size: 10px;
+        font-style: italic;
+        font-weight: bold;
+        margin-left: -12px;
+        margin-top: 2px;
+    }
+
+    .container > .navbar-collapse,
+    .container > .navbar-header {
+        margin-left: 0;
+    }
+
+@media (min-width:768px) and (max-width: 991px) {
+ 
+    .nav > li > a {    
+                padding-right: 5px;
+                }
+            }
+
+     
+.navbar-fixed-top {
+         overflow-x: hidden; background: inherit; border-width: 0;
+     }
+
+.navbar-fixed-top > .container  {
+          background-color: white; 
+    }
+
+.navbar-fixed-top  .profilepicture {
+           margin: 0 10px 0 0;
+    }
+
+
+.navbar-right {
+           margin-right: 0;
+       }
+
+#anonUserCurrencyOptionGroup {
+           display: none; padding-top: 10px; padding-bottom: 10px;
+       }
+
+#anonUserCurrencySelectList {
+    color: black; border-color: transparent; width: 140px
+}
+
+#anonUserCurrencyOptionGroup > .glyphicon-globe {
+    margin: 7px 5px 0 0
+}
+
+
+
+   .navbar-profilePicture {
+       margin: 0 10px 0 20px
+   }
+
+   .navbar-login {
+       padding:0 !important
+   }
+
+   .navbar-login-profilePicture {
+     margin: 0 10px 0 20px !important
+   }

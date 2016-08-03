@@ -1,0 +1,68 @@
+﻿
+
+<div class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+
+
+            <div class="visible-xs  pull-right">
+                @{
+                    var IDStr = @Html.Raw(Html.Action("GetCurrentUserProfilePictureID", "Account"));
+                }
+
+                @if (Request.IsAuthenticated && !string.IsNullOrEmpty(IDStr.ToHtmlString()))
+                {
+
+                    var ImgURL = Url.Action("GetImage", "Image");
+                    <a href="@Url.Action("Edit", "Account")">
+                        <img src="@ImgURL?ImageID=@IDStr&amp;Thumb=true" data-imageid="Calorie.Models.CalorieImage" class="profilepicture ">
+                    </a>
+                }
+                else
+                {
+                    <a href="@Url.Action("Login", "Account")">
+                        <img src="~/Images/DefaultUser.jpg" data-imageid="Calorie.Models.CalorieImage" class="profilepicture ">
+                    </a>
+                }
+
+            </div>
+
+            <a href="@Url.Action("Index", "Home")" class="no-hover-underline">
+                <div class="header-logo-title">ChariF<span class="calorie-green-color">Ώ</span>t</div>
+                <div class="header-logo-subtitle">
+                    Workouts With Meaning
+                </div>
+
+            </a>
+
+
+        </div>
+        <div class="navbar-collapse collapse" id="navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li>@Html.ActionLink("Pledges", "Index", "Pledges")</li>
+                <li>@Html.ActionLink("Teams", "Index", "Teams")</li>
+                <li>@Html.ActionLink("Corporate", "Index", "Company")</li>
+                <li>@Html.ActionLink("Charities", "Index", "Charities")</li>
+                @if (ViewBag.IsIndex != null && ViewBag.IsIndex)
+                {
+                    <li>@Html.ActionLink("FAQ's", "FAQ", "Home")</li>
+                }
+
+
+                <li class="hidden-md hidden-lg">@Html.ActionLink("Top", "Top", "Home")</li>
+
+            </ul>
+
+
+
+            @Html.Partial("_SharedLoginPartial")
+            @Html.Partial("_CurrencySelector")
+        </div>
+    </div>
+</div>

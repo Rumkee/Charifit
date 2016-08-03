@@ -1,0 +1,32 @@
+﻿@model Calorie.Models.Pledges.PledgeBookmark
+
+@{
+    var thisID = Guid.NewGuid().ToString().Replace("-", "").Substring(0, 15);
+}
+
+
+@if (Model.ID != 0)
+{
+    <div id="@thisID" class="btn btn-sm btn-default pull-right" data-checked="true" data-bookmarkid="@Model.ID" >
+        <span class="glyphicon glyphicon-bookmark"></span>
+        <span class="comment">&nbsp;Bookmarked&nbsp;</span>
+        <span id="icon">
+            <span id="tickbox" class="calorie-green-color glyphicon glyphicon-ok pull-right" ></span>
+        </span>
+    </div>
+}
+else
+{
+    <div id="@thisID" class="btn btn-sm btn-default pull-right" data-checked="false" data-bookmarkid="0" >
+        <span class="glyphicon glyphicon-bookmark"></span>
+        <span class="comment">&nbsp;Bookmark</span>
+        <span id="icon">            
+        </span>
+        
+    </div>
+}
+
+<script src="~/Scripts/Calorie/Pledges/_BookmarkPartal.js"></script>
+<script>
+    new calorie.Bookmark($('#@thisID'), '@Model.PledgeID', '@Url.Action("RemoveBookmark", "Pledges")', '@Url.Action("AddBookmark", "Pledges")')
+</script>

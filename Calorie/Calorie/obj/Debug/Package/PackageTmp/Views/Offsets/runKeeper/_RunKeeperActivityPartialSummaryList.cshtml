@@ -1,0 +1,75 @@
+﻿
+
+@model Calorie.Models.Trackers.runKeeperSelectorVM
+
+
+
+
+<div>
+
+    @if (!@Model.Available.Any())
+    {
+        
+                <div  data-count="@Model.Available.Count()"  id="Available" class="alert alert-warning fade in " role="alert"><i class="fa fa-frown-o" aria-hidden="true"></i>&nbsp;Nothing here</div>
+        
+    }
+    else
+    {
+        <table id="Available" class="table table-striped" data-count="@Model.Available.Count()">
+            @foreach (var itm in @Model.Available)
+            {
+                <tr>
+                    <td>
+                        @Html.Partial("..//Offsets//runKeeper//_RunKeeperActivityPartialSummary", @itm)
+                    </td>
+                </tr>
+            }
+
+        </table>
+    }
+
+    
+    
+ 
+          
+            @if (!@Model.UnAvailable.Any())
+            {               
+                        <div  data-count="@Model.UnAvailable.Count()" id="Unavailable" class="alert alert-warning fade in " role="alert"><i class="fa fa-frown-o" aria-hidden="true"></i>&nbsp;Nothing here</div>                 
+            }
+            else
+            {
+                <table class="table table-striped" id="Unavailable" data-count="@Model.UnAvailable.Count()">
+                    
+                    @foreach (var itm in @Model.UnAvailable)
+                    {
+                    <tr>
+                        <td>
+                            @Html.Partial("..//Offsets//runKeeper//_RunKeeperActivityPartialSummary", @itm)
+                        </td>
+                    </tr>
+                    }
+                    
+                </table>
+            }
+
+
+    @if (!@Model.Used.Any())
+    {
+        <div  data-count="@Model.Used.Count()" id="Used" class="alert alert-warning fade in " role="alert"><i class="fa fa-frown-o" aria-hidden="true"></i>&nbsp;Nothing here</div>
+     
+    }
+    else
+    {
+        <table class="table table-striped" id="Used" data-count="@Model.Used.Count()">            
+            @foreach (var itm in @Model.Used)
+            {
+                <tr>
+                    <td>
+                        @Html.Partial("..//Offsets//runKeeper//_RunKeeperActivityPartialSummary", @itm)
+                    </td>
+                </tr>
+            }
+
+        </table>
+    }
+</div>>

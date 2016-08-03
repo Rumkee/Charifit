@@ -1,0 +1,20 @@
+﻿   
+#userSearchPromptResults {
+        display: none;
+        left: 50%;
+        right: auto;
+        text-align: center;
+        transform: translate(-50%, 0);
+        width: 100%;
+        font-size: small;
+        border-radius: 0;
+    }
+
+    .hyperlinkUnderline {
+        pointer-events: auto;
+    }
+
+    .pledgePromptSearchImage {
+        float:left;
+        height: 20px;
+    }

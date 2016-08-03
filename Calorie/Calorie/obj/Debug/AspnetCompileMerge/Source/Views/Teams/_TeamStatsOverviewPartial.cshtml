@@ -1,0 +1,90 @@
+﻿@model Calorie.BusinessLogic.TeamLogic.TeamActivityStats
+
+<div class="hidden-sm hidden-md hidden-lg visible-xs ">
+
+    <table class="table table-striped">
+        <tr>
+            <td>
+
+                @Html.Raw(@Calorie.BusinessLogic.GenericLogic.HTML.CALORIE_HTML)&nbsp;Calories&nbsp;
+                <div class="pull-right">@Model.Calories</div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.Raw(@Calorie.BusinessLogic.GenericLogic.HTML.HOURS_HTML)&nbsp;Hours&nbsp;
+                <div class="pull-right">@Model.Hours</div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.Raw(@Calorie.BusinessLogic.GenericLogic.HTML.MILES_HTML)&nbsp;Miles&nbsp;
+                <div class="pull-right">@Model.Miles</div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.Raw(@Calorie.BusinessLogic.GenericLogic.HTML.SESSIONS_HTML)&nbsp;Sessions&nbsp;
+                <div class="pull-right">@Model.Sessions</div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.Raw(@Calorie.BusinessLogic.GenericLogic.HTML.SPONSORED_HTML)&nbsp;Sponsored&nbsp;
+                <div class="pull-right" data-currencycode="GBP" data-currencyamount="@Model.BaseCurrencySponsoredTotal"></div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.Raw(@Calorie.BusinessLogic.GenericLogic.HTML.RAISED_HTML)&nbsp;Raised&nbsp;
+                <div class="pull-right" data-currencycode="GBP" data-currencyamount="@Model.BaseCurrencyRaisedTotal"></div>
+            </td>
+        </tr>
+    </table>
+</div>
+
+
+<div class="visible-sm visible-md visible-lg hidden-xs">
+    <table class="table table-striped">
+        <tr>
+            <td>
+                <div class="row">
+                    <div class="col-sm-4 col-md-4 col-lg-4">
+                        @Html.Raw(@Calorie.BusinessLogic.GenericLogic.HTML.CALORIE_HTML)&nbsp;Calories
+                        <div class="pull-right">@Model.Calories</div>
+                    </div>
+                    <div class="col-sm-4 col-md-4 col-lg-4">
+                        @Html.Raw(@Calorie.BusinessLogic.GenericLogic.HTML.HOURS_HTML)&nbsp;Hours&nbsp;
+                        <div class="pull-right">@Model.Hours</div>
+                    </div>
+                    <div class="col-sm-4 col-md-4 col-lg-4">
+                        @Html.Raw(@Calorie.BusinessLogic.GenericLogic.HTML.MILES_HTML)&nbsp;Miles&nbsp;
+                        <div class="pull-right">@Model.Miles</div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div class="row">
+                    <div class="col-sm-4 col-md-4 col-lg-4">
+                        @Html.Raw(@Calorie.BusinessLogic.GenericLogic.HTML.SESSIONS_HTML)&nbsp;Sessions&nbsp;
+                        <div class="pull-right">@Model.Sessions</div>
+                    </div>
+                    <div class="col-sm-4 col-md-4 col-lg-4">
+                        @Html.Raw(@Calorie.BusinessLogic.GenericLogic.HTML.SESSIONS_HTML)&nbsp;Sponsored&nbsp;
+                        <div class="pull-right" data-currencycode="GBP" data-currencyamount="@Model.BaseCurrencySponsoredTotal"></div>
+                    </div>
+                    <div class="col-sm-4 col-md-4 col-lg-4">
+                        @Html.Raw(@Calorie.BusinessLogic.GenericLogic.HTML.RAISED_HTML)&nbsp;Raised&nbsp;
+                        <div class="pull-right" data-currencycode="GBP" data-currencyamount="@Model.BaseCurrencyRaisedTotal"></div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </table>
+
+</div>
+
+
+

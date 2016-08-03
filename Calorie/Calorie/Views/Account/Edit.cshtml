@@ -1,0 +1,553 @@
+﻿@model Calorie.Models.EditViewModel
+@using Calorie.Models.Trackers
+
+@section localcss{
+    <link rel="stylesheet" href="~/CSS/Account/Edit.css">
+    <link rel="stylesheet" href="~/CSS/Pledges/_CharitySelectorPartial.css">
+}
+
+
+@{  
+    var hiddenIfCompany = string.Empty;
+    var hiddenIfNotCompany = string.Empty;
+    if (Model.User.IsCompany)
+    {
+        hiddenIfCompany = "display:none";
+    }
+    else
+    {
+        hiddenIfNotCompany = "display:none";
+    }
+
+    var hiddenIfNotExerciser = string.Empty;
+    if (!Model.User.IsExercisor)
+    {
+        hiddenIfNotExerciser = "display:none";
+    }
+    
+}
+
+@using (Html.BeginForm("Edit", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form",id="EditAccountForm" }))
+{
+    
+    @Html.AntiForgeryToken()
+
+    @Html.ValidationSummary("", new { @class = "text-danger" })
+    
+    @Html.Partial("..\\Account\\_UserPartial", @Model.User)
+
+    <br/>
+
+
+    //General Settings
+    <div class="user-edit">
+    <div class="panel">
+        <div class="panel-body">
+            <h4><i class="fa fa-cogs" aria-hidden="true"></i>&nbsp;General Settings</h4>
+            <br/>
+
+            <div class="form-horizontal">
+
+
+                <div class="form-group">
+                    <div class="col-xs-12 col-sm-6 col-sm-offset-3 has-feedback open">
+                        <h6 class="InputLabel">Username</h6>
+                    </div>
+                    <div id="usernameInputGroup" class="col-xs-12 col-sm-6 col-sm-offset-3 has-feedback open">
+
+                        <input class="form-control user-success" data-val="true" data-val-required="The Username field is required." id="usernameInput" name="User.UserName" type="text" value="@Model.User.UserName">
+                        <span id="usernameInputResult" class="form-control-feedback"></span>
+                        <h6 class="text-danger" id="usernameValidationMsg" >Username is already in use</h6>
+                    </div>
+                </div>
+
+                @*change password*@
+                <div class="form-group">
+                    @*<label class="col-xs-12 col-sm-4 control-label pull-left" for="User_PasswordHash">Password</label>*@
+                    <div class="col-xs-12 col-sm-6 col-sm-offset-3">
+                        <h6 class="InputLabel">Password</h6>
+                        <a class="btn btn-warning change-password-button"  href="@Url.Action("ChangePassword", "Manage")">Change Your Password</a>
+                    </div>
+                </div>
+
+                @*email address*@
+                <div class="form-group">
+                    @*@Html.LabelFor(m => m.User.Email, new { @class = "col-xs-12 col-sm-4 control-label pull-left" })*@
+                    <div class="col-xs-12 col-sm-6 col-sm-offset-3">
+                        <h6 class="InputLabel">Email Address</h6>
+                        @Html.TextBoxFor(m => m.User.Email, new {@class = "form-control"})
+
+                    </div>
+                </div>
+
+
+                @*profile picture*@
+                @Html.HiddenFor(m => m.User.ProfilePictureID, new {@class = "form-control "})
+                <div class="form-group">
+
+                    @*<label class="control-label col-xs-12 col-sm-4 pull-left" for="ProfilePictureID">Photo</label>*@
+                    <div class="col-xs-12 col-sm-6 col-sm-offset-3">
+                        <h6 class="InputLabel">Profile Picture</h6>
+                        @Html.HiddenFor(m => m.User.ProfilePictureID, new {@class = "form-control"})
+                        @Html.Partial("..\\Image\\_ImageUpload", new Calorie.Models.CalorieImageUpload() {CurrentImageID = Model.User.ProfilePictureID, HiddenForElementID = "User_ProfilePictureID", Type = Calorie.Models.CalorieImage.ImageType.UserImage})
+                    </div>
+
+                </div>
+
+                <div class="form-group">
+                    <div class="col-xs-12 col-sm-6 col-sm-offset-3">
+
+
+                        <table class="table table-striped">
+
+
+
+
+                            <tr id="SponsoringRow" style="@hiddenIfCompany">
+                                <td>
+
+                                    @*sponsoring*@
+
+
+                                    <div class="col-xs-12 ">
+                                        <div class="row">
+                                            <div class="col-xs-10">
+                                                <h6 class="InputLabel">I'm interested in Sponsoring</h6>
+                                            </div>
+                                            <div class="col-xs-2">
+                                                @Html.CheckBoxFor(m => m.User.IsSponsor, new {@class = "form-control small"})
+                                                @Html.Partial("..\\Shared\\_Checkbox", "User_IsSponsor")
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+
+                                </td>
+                            </tr>
+
+
+                            <tr id="ExerciserRow" style="@hiddenIfCompany">
+                                <td>
+
+
+                                    @*Exerciser*@
+
+
+                                    <div class="col-xs-12">
+                                        <div class="row">
+                                            <div class="col-xs-10">
+                                                <h6 class="InputLabel">I'm interested logging my exercise activities.</h6>
+                                            </div>
+                                            <div class="col-xs-2">
+                                                @Html.CheckBoxFor(m => m.User.IsExercisor, new {@class = "form-control small"})
+                                                @Html.Partial("..\\Shared\\_Checkbox", "User_IsExercisor")
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                    
+
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+
+
+                                    @*Company Account*@
+                                    <div class="col-xs-12">
+                                        <div class="row">
+                                            <div class="col-xs-10">
+                                                <h6 class="InputLabel">Corporate Account</h6>
+                                            </div>
+                                            <div class="col-xs-2">
+                                                @Html.CheckBoxFor(m => m.User.IsCompany, new {@class = "form-control small"})
+                                                @Html.Partial("..\\Shared\\_Checkbox", "User_IsCompany")
+                                            </div>
+                                        </div>
+                                      
+                                    </div>
+
+                                </td>
+                            </tr>
+
+                        </table>@*end table*@
+                    </div>
+                </div>
+
+                @*Currency*@
+                <div class="form-group">
+
+                    <div class="col-xs-12 col-sm-6 col-sm-offset-3">
+                        <h6 class="InputLabel">Currency</h6>
+                        <select class="form-control"  name="User.Currency" id="User_Currency">
+                            @{
+                                var Dict = Calorie.BusinessLogic.CurrencyLogic.getCurrencyOptions();
+                                foreach (var cur in Dict)
+                                {
+                                    <option value="@cur.Key"
+                                            @{
+                                                if ((int) Model.User.Currency == cur.Key)
+                                                {
+                                                    @: selected
+                                                }
+                                            }>
+                                        @cur.Value
+                                    </option>
+                                }
+                            }
+                    </select>
+                </div>
+            </div>
+
+
+        </div>
+
+
+
+    </div>
+
+    </div>
+
+
+    @*Corporate AccountSettings*@
+    <div class="panel" id="CorporateAccountSettings" style="@hiddenIfNotCompany">
+        <div class="panel-body">
+            <h4><i class="fa fa-black-tie " aria-hidden="true"></i>&nbsp;Corporate Account Settings</h4>
+            <br/>
+            <div class="form-group">
+                <div class="col-xs-12 col-sm-6 col-sm-offset-3">
+                    <h6 class="InputLabel">Company URL</h6>
+                    @Html.TextBoxFor(m => m.User.CompanyURL, new {@class = "form-control"})
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-xs-12 col-sm-6 col-sm-offset-3">
+
+                    <h5>Company Description</h5>
+                    <h6><i>Tell us about your company.</i></h6>
+
+                    <div id="DescriptionTextEditor">@Html.Raw(Model.User.CompanyDescription)</div>
+                    @Html.ValidationMessageFor(model => model.User.CompanyDescription, "", new {@class = "text-danger"})
+                    @Html.HiddenFor(model => model.User.CompanyDescription)
+
+                </div>
+            </div>
+          
+        </div>
+
+    </div>
+
+
+
+    @*Team Settings*@
+    @Html.Partial("..\\Teams\\_TeamSelectorPartial", Model.TopTeams)
+
+    <div class="panel buttoned-panel">
+        <div class="row">
+
+            <div class="col-xs-6">
+                <h4><i class="fa fa-flag" aria-hidden="true"></i>&nbsp;Team Affiliation</h4>
+            </div>
+            <div class="col-xs-6">
+                @{
+                    var Req = Model.User.TeamJoinRequests.FirstOrDefault();
+                }
+                @if (Model.User.Team == null && Req == null)
+                {
+               
+                        <a onclick="btnAddTeam(event)" class="btn btn-default pull-right">
+                            <span class="glyphicon glyphicon-plus"></span>&nbsp;Join Team
+                        </a>
+                  
+                }
+            </div>
+
+
+        </div>
+
+        <div class="panel-body ">
+
+            <br/>
+            @Html.HiddenFor(m => m.User.TeamID, new {@class = "form-control"})
+            <div id="selectedteam">
+                @if (Model.User.Team != null)
+                {
+                    @Html.Partial("..\\Teams\\_TeamPartial", new Calorie.Models.Teams.TeamVM() {ShowSelector = false, Team = Model.User.Team, ShowSocial = true, ShowPanel = false})
+                }
+                else if (Req != null)
+                {
+                    <div class="alert alert-danger fade in" role="alert">
+                        <span class="glyphicon glyphicon-pause"></span>&nbsp;Approval Pending
+                    </div>
+                    @Html.Partial("..\\Teams\\_TeamPartial", new Calorie.Models.Teams.TeamVM() {ShowSelector = false, Team = Req.Team, ShowSocial = true, ShowPanel = false})
+
+                }
+                else
+                {
+                    <div>No Team Affiliation</div>
+                }
+            </div>
+
+        </div>
+    </div>
+
+
+    @*Default Charities Settings*@
+    @Html.Partial("..\\Pledges\\Charity\\_CharitySelectorPartial", Calorie.BusinessLogic.CharityLogic.GetTopCharities())
+    <div class="panel">
+        <div class="panel-body buttoned-panel">
+            <div class="row">
+                <div class="col-xs-6">
+                    <h4><i class="fa fa-heart-o" aria-hidden="true"></i>&nbsp;Preferred Charities</h4>
+                </div>
+                <div class="col-xs-6">
+                    <div class="btn btn-default pull-right" onclick="btnAddCharity(event)">
+                        <span class="glyphicon glyphicon-plus"></span>&nbsp;Add Charity
+                    </div>
+                </div>
+            </div>
+
+            <br/>
+
+            <table class="table table-striped" id="charityContainer">
+
+                @foreach (var PrefCharity in Model.User.PreferredCharities)
+                {
+                    var thisID = "charity" + @PrefCharity.Charity.JustGivingCharityID;
+                    <tr id="@thisID">
+                        <td>
+                            @Html.Partial("..\\Charities\\_CharityPartial", new Calorie.Models.Charities.CharityVM() {Charity = PrefCharity.Charity, ShowSelector = false, ShowRemoveSelector = true})
+                        </td>
+                    </tr>
+
+                }
+
+            </table>
+
+            <div id="PreferredjustGivingCharities"></div>
+        </div>
+    </div>
+
+
+   
+
+
+    <!--Trackers & Preferred Activities-->
+    <div id="ExerciserSettings" style="@hiddenIfNotExerciser">
+
+
+        @*Trackers*@
+        <div class="panel panel-default">
+
+            <div class="panel-body">
+                <h4><i class="fa fa-location-arrow" aria-hidden="true"></i>&nbsp;Trackers</h4>
+                <h6><i>you'll need to set up at least one tracker service to log your exercise activities.</i></h6>
+                <br/>
+                <div class="form-group">
+
+
+                    <table class="table table-striped">
+                        @{
+                            var TL = new Calorie.BusinessLogic.Trackers.TrackerLogic();
+                            foreach (var t in TL.Trackers)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.Partial("..\\Trackers\\_AddTrackerPartial", new AddTrackerVM()
+                                        {
+                                            ITracker = t,
+                                            UserTracker = Model.User.Trackers.FirstOrDefault(uT => uT.Type == t.Type)
+                                        })
+                                    </td>
+                                </tr>
+                            }
+
+                        }
+                    </table>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        @*Preferred Activities*@
+        <div class="panel">
+            <div class="panel-body buttoned-panel">
+                <h4><i class="fa fa-heartbeat" aria-hidden="true"></i>&nbsp;Preferred Activities</h4>
+                <br/>
+                @Html.Partial("..\\Pledges\\Activities\\_AllActivitiesPartial", "activityClicked(event)")
+                <div id="PreferredActivitiesList"></div>
+            </div>
+        </div>
+
+    </div>
+
+
+    <!--Email Settings-->
+    <div class="panel ">
+        <div class="panel-body buttoned-panel">
+            <div class="row">
+                <div class="col-xs-6">
+                    <h4><i class="fa fa-envelope-o" aria-hidden="true"></i>&nbsp;Email Preferences</h4>
+                </div>
+                <div class="col-xs-6">
+
+                </div>
+            </div>
+            <br/>
+            <div class="row">
+                <div class="col-xs-12 col-sm-6 col-sm-offset-3">
+
+                    <table class="table table-striped">
+
+                        @*RecieveFirstPartyEmails*@
+                        <tr>
+                            <td>
+
+                                <div @*class="form-group"*@>
+
+                                    @*<div class="col-xs-12">*@
+                                    <div class="row">
+                                        <div class="col-xs-10">
+                                            <h6 class="InputLabel">Emails From Us</h6>
+                                        </div>
+                                        <div class="col-xs-2">
+                                            @Html.CheckBoxFor(m => m.User.RecieveFirstPartyEmails, new {@class = "form-control"})
+                                            <div class="pull-right">
+                                                @Html.Partial("..\\Shared\\_Checkbox", "User_RecieveFirstPartyEmails")
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                @*</div>*@
+
+                            </td>
+                        </tr>
+
+                        @*RecieveThirdPartyEmails*@
+                        <tr>
+                            <td>
+                                <div @*class="form-group"*@>
+
+                                    @*<div class="col-xs-12">*@
+                                    <div class="row">
+                                        <div class="col-xs-10">
+                                            <h6 class="InputLabel">Third Party Emails</h6>
+                                        </div>
+                                        <div class="col-xs-2">
+                                            @Html.CheckBoxFor(m => m.User.RecieveThirdPartyEmails, new {@class = "form-control small"})
+                                            <div class="pull-right">
+                                                @Html.Partial("..\\Shared\\_Checkbox", "User_RecieveThirdPartyEmails")
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    @* </div> *@
+                                </div>
+                            </td>
+                        </tr>
+
+                    </table>
+                </div>
+            </div>
+            <br/>
+
+            @if (Model.User.Alerts.Count != 0)
+            {
+
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="row">
+                            <div class="col-xs-6 col-sm-3 col-sm-offset-3">
+                                <h6><i>Alerts</i></h6>
+                            </div>
+                            <div class="col-xs-6 col-sm-3">
+                                <div class="btn btn-sm btn-default pull-right" id="btnKillAllAlerts" onclick="KillAllAlerts()">
+                                    <span class="glyphicon glyphicon-remove"></span>&nbsp;Kill All
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-sm-offset-3">
+                        <div id="AlertFeedback" class='alert alert-success alert-dismissible fade in' role='alert'>
+                            <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button><span id="AlertFeedbackMsg">All alerts have been removed.</span>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-sm-offset-3">
+
+                        <table class="table table-striped">
+                            @foreach (var a in Model.User.Alerts)
+                            {
+                                var FriendlyName = string.Empty;
+                                switch (a.Type)
+                                {
+                                    case Calorie.Models.UserAlert.UserAlertType.PledgeQuery:
+                                        FriendlyName = "<span class='glyphicon glyphicon-search'></span>&nbsp;Pledge Search";
+                                        break;
+                                }
+                                <tr data-alertid="@a.ID">
+                                    <td>
+                                        <div class="row">
+                                            <div class="col-xs-10">
+                                                @Html.Raw(FriendlyName) for @a.Data
+
+                                            </div>
+                                            <div class="col-xs-2">
+                                                <div class="btn btn-sm btn-default pull-right" onclick="removeAlert(@a.ID, event)"><span class="glyphicon glyphicon-remove"></span></div>
+                                            </div>
+                                        </div>
+
+
+                                    </td>
+                                </tr>
+                            }
+                        </table>
+
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+
+
+
+    <!--Save Button-->
+    <div class="form-group">
+        <div class="col-xs-12">
+            <input id="saveBtn" type="submit" class="btn btn-warning pull-right" value="Save"/>
+        </div>
+    </div>
+
+    </div>
+}
+    
+
+
+<script     id="EditScript"
+            data-kill-alert-url="@Url.Action("KillAlert", "Account")"
+            data-kill-all-alerts-url="@Url.Action("KillAllAlerts", "Account")"
+            src="~/Scripts/Calorie/Account/Edit.js"></script>
+
+<script>
+    @*Charities Default Data*@
+    $(function() {
+        @foreach (var PrefCharity in Model.User.PreferredCharities)
+        {
+            @:PreferredjustGivingCharities.add("@PrefCharity.Charity.JustGivingCharityID");
+        }
+    });
+
+    @*Preferred Activities Default Data*@
+    $(function() {
+        @foreach (var pa in Model.PreferredActivities)
+        {
+            @:  setActivity($('*[data-activityname="@pa"]'), true);
+        }
+    });
+</script>

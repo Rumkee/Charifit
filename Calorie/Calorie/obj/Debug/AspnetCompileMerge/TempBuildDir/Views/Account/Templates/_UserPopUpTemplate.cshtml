@@ -1,0 +1,111 @@
+﻿
+
+<script id="userPopUp-template" type="text/x-handlebars-template">
+
+
+                <div class="panel popbackground" >
+                    <div class="panel-body">
+
+                        
+                        <table class="table table-striped forcetransparent">
+                            <tr class="forcetransparent">
+                                <td>
+                                    <div class="row">
+                                        <div class ="userpopup-smalltext">{{name}}</div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class ="userpopup-smalltext">{{{status}}}</div>
+                                    </div>
+                                </td>
+                            </tr>
+                                                    
+
+
+                            <tr class="forcetransparent">
+                                <td>
+
+                                  <div class="row">
+
+                                        <div class="col-xs-5 userPop-data"><span class="glyphicon glyphicon-fire"></span>&nbsp;Calories</div>
+                                        <div class="col-xs-3 userPop-data">{{calTotal}}</div>
+                                        <div class="col-xs-4 userPop-data">{{{calStars}}}</div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="forcetransparent">
+                                <td>
+                                    <div class="row">
+                                        <div class="col-xs-5 userPop-data"><span class="glyphicon glyphicon-time"></span>&nbsp;Hours</div>
+                                        <div class="col-xs-3 userPop-data">{{hoursTotal}}</div>
+                                        <div class="col-xs-4 userPop-data">{{{hoursStars}}}</div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="forcetransparent">
+                                <td>
+                                    <div class="row">
+                                        <div class="col-xs-5 userPop-data"><span class="glyphicon glyphicon-road"></span>&nbsp;Miles</div>
+                                        <div class="col-xs-3 userPop-data">{{milesTotal}}</div>
+                                        <div class="col-xs-4 userPop-data">{{{milesStars}}}</div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="forcetransparent">
+                                <td>
+                                    <div class="row">
+                                        <div class="col-xs-5 userPop-data"><span class="glyphicon glyphicon-heart"></span>&nbsp;Sessions</div>
+                                        <div class="col-xs-3 userPop-data">{{sessionsTotal}}</div>
+                                        <div class="col-xs-4 userPop-data">{{{sessionsStars}}}</div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="forcetransparent">
+                                <td>
+
+                                    <div class="row">
+                                        <div class="col-xs-5 userPop-data"><i class="fa fa-money"></i>&nbsp;Sponsored</div>
+                                        <div class="col-xs-3 userPop-data"><text data-currencycode="GBP" data-currencyamount="{{pledgedTotal}}" id="pledgedTotal"></text></div>
+                                        <div class="col-xs-4 userPop-data">{{{pledgedStars}}}</div>
+                                    </div>
+                                </td>
+                            </tr>
+
+
+
+                        
+
+                            <tr class="forcetransparent">
+                                <td>
+
+
+                                    @*team affiliation*@
+                                                                    
+                                    <div class="row" style="text-align:left;">
+                                        {{#if teamImageID}}
+                                        <div class="col-xs-3">
+                                            <img class="userpopup-teamimage" src="/Calorie/Image/GetImage?ImageID={{teamImageID}}&Thumb=true">
+                                        </div>
+                                        <div class="col-xs-9">
+                                            <div class="userpopup-teamname" >{{teamName}}</div>
+                                        </div>
+                                        {{else}}
+
+                                        <div class="col-xs-12">
+                                            <div class="userpopup-noaffiliation">No Team Affiliation</div>
+                                        </div>
+                                        {{/if}}
+
+                                    </div>
+
+                                </td>
+                            </tr>
+                        </table>
+
+            </div>
+
+       </div>
+
+
+</script>
+

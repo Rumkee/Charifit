@@ -1,0 +1,112 @@
+﻿@model Calorie.Models.Offset
+
+@using Calorie.Models.Trackers
+
+@{
+    ViewBag.Title = "Create";
+
+    var Runkeeper = Model.Offsetter.Trackers.FirstOrDefault(t => t.Type == Tracker.TrackerType.RunKeeper);
+    var Fitbit = Model.Offsetter.Trackers.FirstOrDefault(t => t.Type == Tracker.TrackerType.Fitbit);
+    var msHealth = Model.Offsetter.Trackers.FirstOrDefault(t => t.Type == Tracker.TrackerType.MicrosoftHealth);
+
+}
+
+
+@Html.Partial("..\\Offsets\\runKeeper\\_RunKeeperSelectorPartial")
+@Html.Partial("..\\Offsets\\Fitbit\\_FitbitSelectorPartial")
+
+
+<div class="panel panel-no-bottom-rule">
+    <div class="panel-heading">
+        show pledge details
+
+        @*@Html.Partial("..\\Pledges\\_PledgePartial2", Model.Pledge)*@
+    </div>
+
+    <br />
+    <div class="panel-body">
+
+        <div class="panel panel-default ">
+            <div class="panel-heading ">
+
+
+
+                <div class="row">
+                    <div class="col-xs-12 col-sm-3">
+                        <h5><span class="glyphicon glyphicon-import"></span>&nbsp;Import Activity</h5>
+                    </div>
+                    <div class="col-xs-12">
+
+                        <div class="btn-group pull-right">
+
+                            @if (Runkeeper != null)
+                            {
+                                <a id="RunKeeperbtn" data-toggle="modal" data-target="#RunKeeperSelector" class="btn btn-warning btn-sm pull-right ">
+                                    <span class="glyphicon glyphicon-import"></span>&nbsp;Import From RunKeeper
+                                </a>
+                            }
+
+
+                            @if (Fitbit != null)
+                            {
+                                <a id="FitbitBtn" data-toggle="modal" data-target="#FitbitSelector" class="btn btn-warning btn-sm pull-right">
+                                    <span class="glyphicon glyphicon-import"></span>&nbsp;Import From Fitbit
+                                </a>
+                            }
+
+                            @if (msHealth != null)
+                            {
+                                <a id="msHealthBtn" onclick="msHealthBtnClick(event)" data-toggle="modal" data-target="#FitbitSelector" class="btn btn-warning btn-sm pull-right">
+                                    <span class="glyphicon glyphicon-import"></span>&nbsp;Import From Microsoft Health
+                                </a>
+                            }
+
+                            '
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="panel-body">
+                <div id="offSetPanelBody">
+
+                </div>
+
+                <div id="offSetPanelBodyMessage"></div>
+                <br/>
+                @using (Html.BeginForm())
+            {
+
+                    @Html.AntiForgeryToken()
+
+                    @Html.HiddenFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.HiddenFor(m => m.ImageID, new { @class = "form-control" })
+                    @Html.HiddenFor(model => model.OffsetAmount, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.HiddenFor(model => model.PledgeID)
+                    @Html.HiddenFor(model => model.OffsetterID)
+                    @Html.HiddenFor(model => model.BlobType)
+                    @Html.HiddenFor(model => model.JSONBlob)
+                    @Html.HiddenFor(model => model.ThirdPartyIdentifier)
+
+                <input id="CreateOffsetBtn" type="submit" value="Add activity" class="btn btn-sm btn-warning pull-right disabled "/>
+
+                }
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script id="CreateScript"
+        data-activity-units="@Model.Pledge.Activity_Units.ToString()"
+        src="~/Scripts/Calorie/Offsets/Create.js"> </script>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+

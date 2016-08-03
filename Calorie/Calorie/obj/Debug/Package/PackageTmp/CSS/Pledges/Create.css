@@ -1,0 +1,14 @@
+﻿
+
+.amount-group {
+    margin: 0
+}
+
+input.amount {
+    padding-left: 75px;
+}
+
+.currency-symbol {
+    left: 5px; width: 70px
+}
+

@@ -1,0 +1,116 @@
+﻿
+
+.body-content {
+    margin-top: 50px;
+   
+}
+
+.body-row {
+   padding-bottom: 10px; 
+}
+
+.footer-copyright {
+    font-size: small
+}
+
+
+.footer {
+   min-height: 100px;
+    background-color: white;
+}
+
+.footer a{
+    color: #777;
+}
+
+.social-icon .fa{
+    font-size: 25px;
+    padding: 5px;
+}
+
+@media (max-width:768px) {
+ 
+    .footer .social-icon{
+        display: inline-block;  
+    }
+
+}
+@media (min-width:769px) {
+ 
+    .footer .social-icon{
+         float: right;
+        
+    }
+
+}
+
+.footer-logo {
+    font-size: 25px;
+}
+
+.footer hr {
+    margin-top: 0;
+    border-color: #18bc9c;
+}
+
+@media (max-width:768px) {
+ 
+    .footer {
+        text-align: center;
+    }
+
+}
+
+.profilepicture-header {
+       margin: 05px 10px 0 20px       
+}
+
+.nameoverlay-header {
+        margin:-12px -10px -10px -15px
+}
+
+ .sidebar-header {
+        padding-left: 10px
+    }
+
+
+
+/*SandBox*/
+.sandBox  .settings-text {
+        font-size: 13px;
+    }
+.sandBox  .small-table {
+    width: 100%;
+    font-size: 13px;
+}
+.sandBox  .small-col {
+    width: 100px;
+}
+.sandBox  .small-table > tbody > tr > th {
+    padding: 0;
+}
+.sandBox  .small-table > tbody > tr > td {
+    padding: 0;
+}
+
+.sandBox  .settings-table {
+    width: 100%;
+    font-size: 13px;
+}
+       
+.sandBox  .settings-table > tbody > tr > td {
+    padding: 0;
+    width: 100%;
+}
+
+.sandBox  .settings-table > tbody > tr > td:nth-child(2) {
+    float: right;
+}
+
+.sandBox  #sandboxInfoClickMore {
+    margin-top: -5px;
+}
+
+.sandBox  #sandboxInfoClickLess {
+    display: none; margin-top: -5px;
+}

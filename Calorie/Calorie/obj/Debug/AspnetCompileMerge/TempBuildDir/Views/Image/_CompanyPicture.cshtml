@@ -1,0 +1,18 @@
+﻿@model Calorie.Models.CalorieImage
+@{
+
+
+    if (@Model.CalorieImageID == 0)
+    {
+        <i class="fa fa-black-tie company-picture" ></i>
+    }
+    else
+    {
+        var URL = Url.Action("GetImage", "Image");
+        var src = URL + "?ImageID=" + Model.CalorieImageID.ToString() + "&Thumb=true";
+        <img src="@src" data-imageid="@Model.ToString()" class="corporatepicture" />
+    }
+}
+
+
+
