@@ -34,10 +34,7 @@ namespace Calorie.Controllers
         [HttpPost]
         public ActionResult LikesAdd(string LinkType, string LinkID)
           {
-
-            System.Threading.Thread.Sleep(1000);
-
-           
+          
             var ThisUserID = "";
             var user = CurrentUser();
             if (user != null)

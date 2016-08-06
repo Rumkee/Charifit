@@ -146,7 +146,6 @@ namespace Calorie.Controllers
         [AllowAnonymous]
         public ActionResult CheckUsername(string Username)
         {
-             System.Threading.Thread.Sleep(500);
             
             var Count = db.Users.Count(u => u.UserName == Username);
             var responsetext = "no";
@@ -172,7 +171,6 @@ namespace Calorie.Controllers
         [HttpPost]        
         public ActionResult KillAllAlerts()
         {
-            System.Threading.Thread.Sleep(1000);
             var user = CurrentUser();
             if (user == null)
             {
@@ -192,7 +190,6 @@ namespace Calorie.Controllers
         [HttpPost]
         public ActionResult KillAlert(string ID)
         {
-            System.Threading.Thread.Sleep(1000);
 
             var IDInt = BusinessLogic.GenericLogic.GetInt(ID);
             var user = CurrentUser();

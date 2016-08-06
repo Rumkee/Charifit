@@ -31,8 +31,6 @@ namespace Calorie.Controllers
         [Authorize]
         public ActionResult AddBookmark(string pledgeID)
         {
-            Thread.Sleep(500);
-
 
             if (string.IsNullOrEmpty(pledgeID))
             {
@@ -58,10 +56,7 @@ namespace Calorie.Controllers
 
         [Authorize]
         public ActionResult RemoveBookmark(string pledgeID)
-        {
-            Thread.Sleep(500);
-
-         
+        {        
 
             if (string.IsNullOrEmpty(pledgeID))
             {
@@ -204,7 +199,6 @@ namespace Calorie.Controllers
         public ActionResult Filter(string count, string type)
         {
 
-            Thread.Sleep(1000);
             var countInt = GenericLogic.GetInt(count);
             var typeInt = GenericLogic.GetInt(type);
 
@@ -269,8 +263,6 @@ namespace Calorie.Controllers
         [HttpPost]
         public ActionResult userSearch(string SearchString)
         {
-
-            Thread.Sleep(500);
 
             var _SearchString = SearchString.ToLower();
             

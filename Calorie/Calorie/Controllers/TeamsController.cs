@@ -39,7 +39,6 @@ namespace Calorie.Controllers
         public ActionResult Filter(string count, string type)
         {
 
-            Thread.Sleep(1000);
             var countInt = GenericLogic.GetInt(count);
             var typeInt = GenericLogic.GetInt(type);
 
@@ -75,7 +74,6 @@ namespace Calorie.Controllers
 
         public ActionResult CheckTeamName(string TeamName)
         {
-            Thread.Sleep(500);
 
             var Count = db.Teams.Count(t => t.Name == TeamName);
             var responsetext = "no";

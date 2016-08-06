@@ -54,7 +54,6 @@ namespace Calorie.Controllers
         public ActionResult Filter(string count, string type)
         {
 
-            System.Threading.Thread.Sleep(1000);
             var countInt = GenericLogic.GetInt(count);
             var typeInt = GenericLogic.GetInt(type);
 
