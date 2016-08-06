@@ -988,6 +988,8 @@ namespace Calorie.Controllers
                     _signInManager.Dispose();
                     _signInManager = null;
                 }
+
+                db.Dispose();
             }
 
             base.Dispose(disposing);

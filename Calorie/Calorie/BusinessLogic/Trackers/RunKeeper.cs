@@ -31,7 +31,7 @@ namespace Calorie.BusinessLogic.Trackers
         {
             get
             {
-                throw new NotImplementedException();
+                throw new NotSupportedException();
             }
         }
 

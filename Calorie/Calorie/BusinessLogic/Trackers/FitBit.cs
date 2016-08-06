@@ -37,7 +37,7 @@ namespace Calorie.BusinessLogic.Trackers
 
         public string DisassociateActionName
         {
-            get { throw new NotImplementedException(); }
+            get { throw new NotSupportedException(); }
         }
 
         public string AuthenticateStart()

@@ -24,15 +24,7 @@ namespace Calorie.Models.Pledges
     //}
     public class Pledge
     {
-
-        public Pledge()
-        {
-            Contributors = new List<PledgeContributors>();
-            Gallery  = new List<CalorieImage>();
-            Activity_Types= new List<PledgeActivity>();
-        }
-
-     
+        
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid PledgeID { get; set; }
@@ -47,9 +39,8 @@ namespace Calorie.Models.Pledges
         public PledgeActivity.ActivityUnits Activity_Units { get; set; }
 
         [Display(Name = "Select the applicable types of activity, or leave blank for all.")]
-        public List<PledgeActivity> Activity_Types { get; set; }
+        public List<PledgeActivity> Activity_Types { get; set; } = new List<PledgeActivity>();
 
-        
 
         [Display(Name = "Tell us the story behind this donation")]
         [DataType(DataType.MultilineText)]
@@ -74,35 +65,30 @@ namespace Calorie.Models.Pledges
         public DateTime ExpiryDate { get; set; }
         
         public decimal  TotalOffsetAmount { 
-        get {
+        get
+        {
             if (Offsets != null)
-            {
-                return Offsets.Sum(o => o.OffsetAmount);
-            }
-            else
-            {
-                return 0M;
-            }
-         }
-       }           
+                    return Offsets.Sum(o => o.OffsetAmount);
+
+            return 0M;
+
+        }
+        }           
 
         public int TotalOffsetPercent 
         { 
-            get { 
-                if (Activity_Amount!=0){
+            get
+            {
+                if (Activity_Amount!=0)
                     return (int)(Math.Min((decimal)100.00, (TotalOffsetAmount /Activity_Amount) * (decimal)100.00));
-                }
-                else
-                {
-                    return 0;
-                }
                 
+                return 0;
             }
         }
 
         public virtual ICollection<Teams.Team> Teams { get; set; }
 
-        public virtual List<PledgeContributors> Contributors { get; set; }
+        public virtual List<PledgeContributors> Contributors { get; set; } = new List<PledgeContributors>();
 
         public PledgeContributors Originator{
             get {
@@ -110,7 +96,7 @@ namespace Calorie.Models.Pledges
             }
         }
 
-        public virtual List<CalorieImage> Gallery { get; set; }
+        public virtual List<CalorieImage> Gallery { get; set; } = new List<CalorieImage>();
 
         public virtual List<PledgeBookmark> Bookmarks { get; set; }
 

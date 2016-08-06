@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Configuration;
+using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
@@ -66,9 +67,9 @@ namespace Calorie
         SignInAsAuthenticationType = "ExternalCookie",
         
         Provider = new FacebookAuthenticationProvider {
-                OnAuthenticated = async ctx => {
-
-                    ctx.Identity.AddClaim(new System.Security.Claims.Claim("FacebookAccessToken", ctx.AccessToken));
+                OnAuthenticated = ctx => {                    
+                     ctx.Identity.AddClaim(new System.Security.Claims.Claim("FacebookAccessToken", ctx.AccessToken));
+                    return Task.FromResult(ctx);
                 }
             }
         };
