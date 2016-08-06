@@ -5,13 +5,12 @@
 
 @{
     var TopAmount = 5;
-    
+
     var TopTeams = Model.Teams.OrderByDescending(t => t.Members.Sum(m => m.Offsetters.Count())).Take(TopAmount);
-    var TopIndividualPledge = Model.Users.Where(u => !u.IsCompany).OrderByDescending(u => u.Contributions.Sum(c => CurrencyLogic.ToBase(c.Currency, c.Amount))).Take(TopAmount);
-    var TopIndividualOffset = Model.Users.Where(u => !u.IsCompany).OrderByDescending(u => u.Offsetters.Count()).Take(TopAmount);
+    var TopIndividual = Model.Users.Where(u => !u.IsCompany).OrderByDescending(UserLogic.GetStarsForUser).Take(TopAmount);
     var TopCompanies = Model.Users.Where(u => u.IsCompany).OrderByDescending(u => u.Contributions.Sum(c => CurrencyLogic.ToBase(c.Currency, c.Amount))).Take(TopAmount);
     var TopCharities = CharityLogic.GetTopCharitiesByAmountRaised();
-    
+
     bool IsLogIn = TempData["IsLogInView"]!= null;
 
 }
@@ -96,71 +95,23 @@
 }
 
 
-
-
-@if (TopIndividualPledge.Any())
+@if (TopIndividual.Any())
 {
-
     <div class="panel panel-default">
 
         <div class="panel-body no-padding" >
             <div class="sidebar-header">
                 <h5>Top Individuals</h5>
-                <h6><i>Total sponsorship amount</i></h6>
+                <h6><i>Most Stars</i></h6>
             </div>
             <table class="table table-striped">
                 @{
-                    foreach (var User in TopIndividualPledge)
-                    {
-                        <tr>
-                            <td>
-                                <div class="row">
-                                    <div class="col-xs-12">
-                                        @Html.Partial("..\\Account\\_UserPartial", @User)
-                                    </div>
-
-                                </div>
-                                <div class="row">
-                                    <div class="col-xs-12">
-
-                                        @{
-                                            var Amount = @User.Contributions.Sum(c => CurrencyLogic.ToBase(c.Currency, c.Amount));
-                                        }
-                                        <span class="pull-right" data-currencycode="GBP" data-currencyamount="@Amount"></span>
-                                    </div>
-                                </div>
-
-
-                            </td>
-                        </tr>
-                    }
-                }
-            </table>
-        </div>
-    </div>
-    
-}
-
-
-
-@if (TopIndividualOffset.Any())
-{
-
-    <div class="panel panel-default">
-
-        <div class="panel-body no-padding" >
-            <div class="sidebar-header">
-                <h5>Top Individuals</h5>
-                <h6><i>Number of activities logged</i></h6>
-            </div>
-            <table class="table table-striped">
-                @{
-                    foreach (var User in TopIndividualOffset)
+                    foreach (var User in TopIndividual)
                     {
                         <tr>
                             <td>
                                 @Html.Partial("..\\Account\\_UserPartial", @User)
-                                <span class="pull-right">@User.Offsetters.Count()</span>
+                            
                             </td>
                         </tr>
 
@@ -170,7 +121,6 @@
         </div>
     </div>
 }
-
 
 
 
