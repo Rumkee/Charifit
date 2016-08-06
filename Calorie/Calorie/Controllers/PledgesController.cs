@@ -273,8 +273,8 @@ namespace Calorie.Controllers
             Thread.Sleep(500);
 
             var _SearchString = SearchString.ToLower();
-
-            var Pledges = db.OpenPledges.Include("Activity_Types");
+            
+            var Pledges = db.OpenPledges.Include("Activity_Types").ToList();
 
 
             var teamNames = db.Teams.Where(t => t.Name.Contains(_SearchString)).ToList().ConvertAll(t => t.Name.ToLower());
@@ -283,7 +283,7 @@ namespace Calorie.Controllers
             var actitiesList = Enum.GetNames(typeof(PledgeActivity.ActivityTypes)).Where(a => a.ToLower().Contains(_SearchString));
             var activitesPledgesResult = Pledges.Where(p => p.Activity_Types.Any(at => actitiesList.Contains(at.Activity.ToString())));
 
-            var charitiesPledgesResult = Pledges.Where(p => p.CharityName.ToLower().Contains(_SearchString));
+            var charitiesPledgesResult = Pledges.Where(p => p.Charity.Name.ToLower().Contains(_SearchString) );
 
 
             var result = teamPledgesResult.Concat(activitesPledgesResult).Concat(charitiesPledgesResult);

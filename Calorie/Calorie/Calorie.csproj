@@ -31,7 +31,7 @@
     <AssemblyVersionSettings>None.None.None.Increment</AssemblyVersionSettings>
     <AssemblyFileVersionSettings>None.None.None.Increment</AssemblyFileVersionSettings>
     <AssemblyInfoVersionSettings>None.None.None.Increment</AssemblyInfoVersionSettings>
-    <AssemblyVersion>0.0.1.1131</AssemblyVersion>
+    <AssemblyVersion>0.0.1.1139</AssemblyVersion>
     <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -42,6 +42,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -604,7 +605,9 @@
     <Content Include="Views\Shared\_SandboxPartial.cshtml" />
     <Content Include="favicons\manifest.json" />
     <Content Include="Views\Pledges\Index\_SearchPartial.cshtml" />
-    <Content Include="appSettings.config" />
+    <Content Include="appSettings.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="appSettings.Debug.config">
       <DependentUpon>appSettings.config</DependentUpon>
     </Content>
