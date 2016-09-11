@@ -12,6 +12,7 @@ using System.Net;
 using System.Net.Mime;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Drawing.Text;
 using Recaptcha.Web;
 using Recaptcha.Web.Mvc;
 
@@ -972,6 +973,40 @@ namespace Calorie.Controllers
         // GET: /Account/ExternalLoginFailure
         [AllowAnonymous]
         public ActionResult ExternalLoginFailure() => View();
+
+
+        public ActionResult SuperAdmin()
+        {
+            
+            if (IsSuperAdmin())
+                return View();
+
+            throw new HttpException(403, "Forbidden");
+
+        }
+
+        public ActionResult RecacheJustGivingCharities()
+        {
+
+            if (IsSuperAdmin())
+            {
+                BusinessLogic.JustGivingLogic.RecacheJustGivingCharities();
+                BusinessLogic.Messaging.Add(Message.LevelEnum.alert_success, "JustGiving Charities Data Re-cached", Message.TypeEnum.TemporaryAlert, CurrentUser());
+                db.SaveChanges();
+                return View("SuperAdmin");
+            }
+            
+                throw new HttpException(403, "Forbidden");
+            
+        }
+
+
+        private bool IsSuperAdmin()
+        {
+            var usr = CurrentUser();
+            return (usr != null && usr.IsSuperAdmin);
+
+        }
 
         protected override void Dispose(bool disposing)
         {

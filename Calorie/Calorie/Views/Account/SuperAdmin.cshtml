@@ -1,0 +1,19 @@
+﻿@using Recaptcha.Web.Mvc
+@model Calorie.Models.ResetPasswordViewModel
+
+
+<div class="panel">
+    <div class="panel-body ">
+        <h4>Super Admin Portal</h4>
+        <br/>
+
+        <a href="@Url.Action("RecacheJustGivingCharities", "Account")" class="btn btn-default no-shadow full-width login-form-button register-link">
+            <i class="pull-left fa fa-database vertical-align-fa-icon"></i>&nbsp;Re-cache JustGiving Charities
+        </a>
+        
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
